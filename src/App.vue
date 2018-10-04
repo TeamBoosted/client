@@ -1,14 +1,17 @@
 <template>
   <div id="app">
+    <Header v-show="searched" />
     <img alt="Vue logo" src="./assets/logo.png">
-   
-    <SearchBar/>
+    <SearchBar />
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <button @click="toggleSearched() + testing()">testing</button>
+    
     <button
     v-if="!authenticated" 
     @click="login()">
     Log-in
     </button>
+
     <button
     v-if="authenticated"
     @click="logout()">
@@ -21,6 +24,7 @@
 import HelloWorld from './components/HelloWorld.vue';
 import SearchBar from './components/searchBar.vue';
 import AuthService  from './auth/authServices.js';
+import Header from './components/Header'
 
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier} = auth;
@@ -36,14 +40,23 @@ export default {
     
     return {
       auth,
-      authenticated
+      authenticated,
+      searched: true
     }
   },
   components: {
     HelloWorld,
-    SearchBar
+    SearchBar,
+    Header
   },
   methods: {
+    testing: function () {
+      console.log(`Is this working? ${SearchBar.name}`)
+    },
+    toggleSearched: function () {
+      console.log(`am i getting into this.searched?`)
+      this.searched = !this.searched
+    },
     login,
     logout
   }
