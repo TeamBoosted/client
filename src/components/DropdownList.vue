@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li class="title" @click="searchForMovie(); toggleSearchResults()" >{{movie.title}}</li>
+    <li class="title" @click="searchForMovie(); toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
       <ul>
         <li>{{movie.overview}}</li>
       </ul>
