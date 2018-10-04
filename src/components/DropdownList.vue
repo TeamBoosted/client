@@ -3,6 +3,7 @@
     <li class="title" @click="searchForMovie(); toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
       <ul>
         <li>{{movie.overview}}</li>
+        <img :src="img">
       </ul>
     </ul>
 </template>
@@ -12,6 +13,11 @@ import axios from "axios";
 export default {
   name: "DropdownList",
   props: ["movie"],
+  data () {
+    return {
+      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2/${this.movie.poster_path}`
+    }
+  },
   methods: {
     searchForMovie: function() {
       //axios request here
@@ -19,7 +25,7 @@ export default {
     },
     saveToDatabase: function() {
       let currentThis = this;
-      console.log(`I'm searching the database!!!`);
+      console.log(`I'm searching the database!!!`,this.movie);
       axios
         .post(`http://localhost:8081/db/addMedium`, {
           data: currentThis.movie
