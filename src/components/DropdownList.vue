@@ -8,34 +8,36 @@
 </template>
 
 <script>
-
+import axios from "axios";
 export default {
-  name: 'DropdownList',
-  props: ['movie'],
+  name: "DropdownList",
+  props: ["movie"],
   methods: {
-    searchForMovie: function () {
+    searchForMovie: function() {
       //axios request here
-      console.log(`I'm saving for`,this.movie.title)
+      console.log(`I'm saving for`, this.movie.title);
     },
-    saveToDatabase: function () {
-      console.log(`I'm searching the database!!!`)
-      // axios.get(`api/info/movie/${this.input}`)
-      //   .then(function (response) {
-      //     console.log(response);
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      // });
+    saveToDatabase: function() {
+      let currentThis = this;
+      console.log(`I'm searching the database!!!`);
+      axios
+        .post(`http://localhost:8081/db/addMedium`, {
+          data: currentThis.movie
+        })
+        .then(function(response) {
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
-    toggleSearchResults: function () {
+    toggleSearchResults: function() {
       // console.log('hey man!')
-      this.$emit('toggleSearchResults', this.movie.title)
+      this.$emit("toggleSearchResults", this.movie.title);
     }
-
   }
-}
+};
 </script>
 
 <style scoped>
-  
 </style>
