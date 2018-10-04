@@ -9,7 +9,7 @@
         v-for="movie in movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
-        v-on:toggleSearchResults="toggleSearchResults"
+        v-on:toggleSearchResults="toggleSearchResults($event)"
         >
         </DropdownList>
       </ul>
@@ -58,8 +58,8 @@ export default {
     saveToDatabase: function () {
       console.log(`I'm searching the database!!!`)
     },
-    toggleSearchResults: function () {
-      // console.log('I toggled!')
+    toggleSearchResults: function (chosenMovie) {
+      console.log('Here is toggled movie!',chosenMovie)
       this.showSearchResults = !this.showSearchResults
       
     }

@@ -19,7 +19,7 @@ export default {
     },
     saveToDatabase: function () {
       console.log(`I'm searching the database!!!`)
-       // axios.get(`api/info/movie/${this.input}`)
+      // axios.get(`api/info/movie/${this.input}`)
       //   .then(function (response) {
       //     console.log(response);
       //   })
@@ -29,7 +29,7 @@ export default {
     },
     toggleSearchResults: function () {
       // console.log('hey man!')
-      this.$emit('toggleSearchResults')
+      this.$emit('toggleSearchResults', this.movie.title)
     }
 
   }
