@@ -1,14 +1,15 @@
 <template>
   <div>
     <input type="text" v-model="input">
-    <button @click="searchForMovie">Search</button>
-    <div v-if="movies.length > 0">
+    <button @click="searchForMovie();  showSearchResults = true">Search</button>
+    <div v-if="movies.length > 0"  >
       <ul>
         <DropdownList 
+        v-show="showSearchResults"
         v-for="movie in movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
-        v-bind:searchForMovie="searchForMovie"
+        v-on:toggleSearchResults="toggleSearchResults"
         >
         </DropdownList>
       </ul>
@@ -30,25 +31,25 @@ export default {
   components: {
     DropdownList
   },
-  props: {
-    placeHolder: String
-  },
+  props: ['search'],
   data: function () {
     
     return {
       input: "",
       movies: dummyData,
+      showSearchResults: true
     }
   },
   
   methods: {
     searchForMovie: function () {
       //axios request here
-      console.log(`I'm searching for`,this.input)
+      let currentThis = this;
 
       axios.get(`http://localhost:80/api/info/movies/${this.input}`)
         .then(function (response) {
-          console.log( `we made it to the server!`,response);
+          // console.log( `we made it to the server!`,response);
+          currentThis.movies = response.data
         })
         .catch(function (error) {
           console.log('client to SERVER failed',error);
@@ -56,6 +57,11 @@ export default {
     },
     saveToDatabase: function () {
       console.log(`I'm searching the database!!!`)
+    },
+    toggleSearchResults: function () {
+      // console.log('I toggled!')
+      this.showSearchResults = !this.showSearchResults
+      
     }
   }
 }

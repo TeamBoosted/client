@@ -1,8 +1,9 @@
-
-
 <template>
   <ul>
-    <li @click="searchForMovie">{{movie.title}}</li>
+    <li class="title" @click="searchForMovie(); toggleSearchResults()" >{{movie.title}}</li>
+      <ul>
+        <li>{{movie.overview}}</li>
+      </ul>
     </ul>
 </template>
 
@@ -15,7 +16,6 @@ export default {
     searchForMovie: function () {
       //axios request here
       console.log(`I'm saving for`,this.movie.title)
-     
     },
     saveToDatabase: function () {
       console.log(`I'm searching the database!!!`)
@@ -26,8 +26,16 @@ export default {
       //   .catch(function (error) {
       //     console.log(error);
       // });
+    },
+    toggleSearchResults: function () {
+      // console.log('hey man!')
+      this.$emit('toggleSearchResults')
     }
 
   }
 }
 </script>
+
+<style scoped>
+  
+</style>
