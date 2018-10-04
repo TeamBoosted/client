@@ -9,6 +9,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "EventEmitter": "^1.0.0",
+    "auth0-js": "^9.8.0",
     "axios": "^0.18.0",
     "vue": "^2.5.17"
   },
@@ -42,5 +44,4 @@
     "last 2 versions",
     "not ie <= 8"
   ]
-
 }
