@@ -20,42 +20,42 @@
 
 
 <script>
-import axios from 'axios';
-import dummyData from '../assets/dummyData.js'
-import DropdownList from './DropdownList'
+import axios from "axios";
+import dummyData from "../assets/dummyData.js";
+import DropdownList from "./DropdownList";
 
 export default {
-  name: 'SearchBar',
+  name: "SearchBar",
   components: {
     DropdownList
   },
-  props: ['search'],
-  data: function () {
-    
+  props: ["search"],
+  data: function() {
     return {
       input: "",
       movies: [],
       showSearchResults: true
-    }
+    };
   },
-  
+
   methods: {
-    searchForMovie: function () {
+    searchForMovie: function() {
       //axios request here
       let currentThis = this;
       this.$emit("searchedForMovie");
 
-      axios.get(`http://localhost:80/api/info/movies/${this.input}`)
-        .then(function (response) {
+      axios
+        .get(`/api/info/movies/${this.input}`)
+        .then(function(response) {
           // console.log( `we made it to the server!`,response);
-          currentThis.movies = response.data
+          currentThis.movies = response.data;
         })
-        .catch(function (error) {
-          console.log('client to SERVER failed',error);
-      });
+        .catch(function(error) {
+          console.log("client to SERVER failed", error);
+        });
     },
-    saveToDatabase: function () {
-      console.log(`I'm searching the database!!!`)
+    saveToDatabase: function() {
+      console.log(`I'm searching the database!!!`);
     },
     toggleSearchResults: function (chosenMovie) {
       console.log('Here is toggled movie!',chosenMovie)
@@ -64,5 +64,5 @@ export default {
       
     }
   }
-}
+};
 </script>
