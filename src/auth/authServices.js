@@ -47,6 +47,8 @@ export default class AuthService {
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
     // router.replace('home')
+    //added this below for test Hunter test casing.NOT PERMANENT.
+    localStorage.removeItem('moviesSaved')
   }
   setSession(authResult) {
     // Set the time that the Access Token will expire at
@@ -56,6 +58,9 @@ export default class AuthService {
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    if (!localStorage.moviesSaved) {
+      localStorage.setItem('moviesSaved',0)
+    }
     this.authNotifier.emit('authChange', { authenticated: true })
   }
   isAuthenticated() {

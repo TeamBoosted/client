@@ -1,34 +1,43 @@
 <template>
   <ul>
-    <li class="title" @click="searchForMovie(); toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
+    <li class="title" @click="toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
       <ul>
+        <img :src="img" class='poster' @click="toggleSearchResults(); saveToDatabase()">
         <li>{{movie.overview}}</li>
       </ul>
     </ul>
 </template>
 
 <script>
-import axios from "axios";
+import {get, post} from "axios";
 export default {
   name: "DropdownList",
   props: ["movie"],
+  data () {
+    return {
+      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2/${this.movie.poster_path}`
+    }
+  },
   methods: {
-    searchForMovie: function() {
-      //axios request here
-      console.log(`I'm saving for`, this.movie.title);
-    },
+    
     saveToDatabase: function() {
       let currentThis = this;
-      console.log(`I'm searching the database!!!`);
-      axios
-        .post(`/api/db/addMedium`, {
-          data: currentThis.movie
+      localStorage.moviesSaved++
+      console.log('here is localStorage',localStorage)
+      console.log(`I'm searching the database!!!`,this.movie);
+        //posting movie to db
+        post(`http://localhost:8081/db/addMedium`, {
+          data: {
+            movie: currentThis.movie,
+            user: localStorage.id_token
+          }
         })
         .then(function(response) {
-          console.log(response);
-        })
+          //getting reccs
+          get(`https://localhost:80/api/rec/movies/${this.movie.id}`)
+          })
         .catch(function(error) {
-          console.log(error);
+          console.log('saving movie to DB or getting movie recs failed',error);
         });
     },
     toggleSearchResults: function() {
@@ -40,4 +49,8 @@ export default {
 </script>
 
 <style scoped>
+  .poster{
+    max-width: 25%;
+    max-height: 25%;
+  }
 </style>

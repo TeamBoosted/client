@@ -19,8 +19,6 @@
 
 
 
-
-
 <script>
 import axios from "axios";
 import dummyData from "../assets/dummyData.js";
@@ -35,7 +33,7 @@ export default {
   data: function() {
     return {
       input: "",
-      movies: dummyData,
+      movies: [],
       showSearchResults: true
     };
   },
@@ -44,6 +42,7 @@ export default {
     searchForMovie: function() {
       //axios request here
       let currentThis = this;
+      this.$emit("searchedForMovie");
 
       axios
         .get(`/api/info/movies/${this.input}`)
@@ -58,9 +57,11 @@ export default {
     saveToDatabase: function() {
       console.log(`I'm searching the database!!!`);
     },
-    toggleSearchResults: function(chosenMovie) {
-      console.log("Here is toggled movie!", chosenMovie);
-      this.showSearchResults = !this.showSearchResults;
+    toggleSearchResults: function (chosenMovie) {
+      console.log('Here is toggled movie!',chosenMovie)
+      this.showSearchResults = !this.showSearchResults
+
+      
     }
   }
 };
