@@ -21,7 +21,7 @@ export default {
       let currentThis = this;
       console.log(`I'm searching the database!!!`);
       axios
-        .post(`http://localhost:8081/db/addMedium`, {
+        .post(`/api/db/addMedium`, {
           data: currentThis.movie
         })
         .then(function(response) {
