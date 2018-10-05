@@ -1,17 +1,22 @@
 <template>
   <div>
+      <div class=“block”>
+           <b-icon
+               icon=“account”
+               size=“is-small”>
+           </b-icon>
+      </div>
     <input type="text" v-model="input">
     <button @click="searchForMovie();  showSearchResults = true">Search</button>
-    <div v-if="movies.length > 0"  >
+    <div v-if="movies.length > 0" >
       <ul>
-        <DropdownList 
-        v-show="showSearchResults"
+        <MovieRec 
         v-for="movie in movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
         v-on:toggleSearchResults="toggleSearchResults($event)"
         >
-        </DropdownList>
+        </MovieRec >
       </ul>
     </div>
   </div>
@@ -23,19 +28,20 @@
 import axios from 'axios';
 import dummyData from '../assets/dummyData.js'
 import DropdownList from './DropdownList'
+import MovieRec from './MovieRec'
+
 
 export default {
   name: 'SearchBar',
   components: {
-    DropdownList
+    MovieRec
   },
   props: ['search'],
   data: function () {
     
     return {
       input: "",
-      movies: [],
-      showSearchResults: true
+      movies: dummyData,
     }
   },
   
