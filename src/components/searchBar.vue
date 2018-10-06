@@ -10,6 +10,8 @@
         v-bind:key="movie.id"
         v-bind:movie="movie"
         v-on:toggleSearchResults="toggleSearchResults($event)"
+        v-bind:saveToDatabase="saveToDatabase"
+        v-bind:getRecs="getRecs"
         >
         </DropdownList>
       </ul>
@@ -27,7 +29,7 @@ export default {
   components: {
     DropdownList
   },
-  props: ["search"],
+  props: ["search", "saveToDatabase", "getRecs"],
   data () {
     return {
       input: "",
@@ -45,16 +47,13 @@ export default {
       axios
         .get(`http://localhost:80/api/info/movies/${this.input}`)
         .then(function(response) {
-          // console.log( `we made it to the server!`,response);
           currentThis.movies = response.data;
         })
         .catch(function(error) {
           console.log("client to SERVER failed", error);
         });
     },
-    saveToDatabase: function() {
-      console.log(`I'm searching the database!!!`);
-    },
+   
     toggleSearchResults: function (chosenMovie) {
       console.log('Here is toggled movie!',chosenMovie)
       this.showSearchResults = !this.showSearchResults
