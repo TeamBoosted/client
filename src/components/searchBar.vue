@@ -17,8 +17,6 @@
   </div>
 </template>
 
-
-
 <script>
 import axios from "axios";
 import dummyData from "../assets/dummyData.js";
@@ -30,7 +28,7 @@ export default {
     DropdownList
   },
   props: ["search"],
-  data: function() {
+  data () {
     return {
       input: "",
       movies: [],
@@ -45,7 +43,7 @@ export default {
       this.$emit("searchedForMovie");
 
       axios
-        .get(`/api/info/movies/${this.input}`)
+        .get(`http://localhost:80/api/info/movies/${this.input}`)
         .then(function(response) {
           // console.log( `we made it to the server!`,response);
           currentThis.movies = response.data;
