@@ -1,30 +1,49 @@
 <template>
   <div id="app">
     <Header v-show="searched" />
-    <img alt="Vue logo" src="./assets/logo.png">
-    <SearchBar />
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <button @click="toggleSearched() + testing()">testing</button>
+    <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
     
-    <button
-    v-if="!authenticated" 
-    @click="login()">
-    Log-in
-    </button>
+    <template v-if="this.localStorage.moviesSaved > 2">
+      <RateRecs />
+      <button
+        v-if="authenticated"
+        @click="logout()">
+        Log Out
+      </button>
+    </template>
 
-    <button
-    v-if="authenticated"
-    @click="logout()">
-    Log Out
-    </button>
+    <template v-if="authenticated && this.localStorage.moviesSaved < 3">
+      <span v-if="searched">
+        <LandingPage />
+     </span>
+
+      <SearchBar v-on:searchedForMovie="toggleSearched()" />
+
+       <button
+        v-if="authenticated"
+        @click="logout()">
+        Log Out
+      </button>
+    </template>
+
+    <template v-if="!authenticated">
+       <button
+        v-if="!authenticated" 
+        @click="login()">
+        Log-in
+      </button>      
+    </template>
+    
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
 import SearchBar from './components/searchBar.vue';
 import AuthService  from './auth/authServices.js';
 import Header from './components/Header'
+import LandingPage from './components/LandingPage'
+import RateRecs from './components/RateRecs'
+
 
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier} = auth;
@@ -41,29 +60,31 @@ export default {
     return {
       auth,
       authenticated,
-      searched: true
+      searched: true,
+      localStorage: localStorage
     }
   },
   components: {
-    HelloWorld,
     SearchBar,
-    Header
+    Header,
+    LandingPage,
+    RateRecs
   },
   methods: {
-    testing: function () {
-      console.log(`Is this working? ${SearchBar.name}`)
-    },
     toggleSearched: function () {
       console.log(`am i getting into this.searched?`)
       this.searched = !this.searched
     },
+    toggleLanding: function () {
+      this.landingPage = !this.landingPage
+    },
     login,
     logout
-  }
+  },
 }
 </script>
 
-<style>
+<style >
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -71,5 +92,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#magGlass {
+  max-width: 75%;
+  max-height: 75%;
 }
 </style>

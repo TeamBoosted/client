@@ -6,7 +6,7 @@ export default class AuthService {
   authenticated = this.isAuthenticated();
   authNotifier = new EventEmitter();
 
-  constructor () {
+  constructor() {
     this.login = this.login.bind(this);
     this.setSession = this.setSession.bind(this);
     this.logout = this.logout.bind(this);
@@ -16,12 +16,12 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'boostedsearch.auth0.com',
     clientID: 'Q7hNTc_gnIGYk3cVe8ewkTnUvd_5PEYA',
-    redirectUri: 'http://localhost:8080/',
+    redirectUri: '/',
     responseType: 'token id_token',
     scope: 'openid'
   });
 
-  handleAuthentication () {
+  handleAuthentication() {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult)
@@ -33,12 +33,12 @@ export default class AuthService {
     })
   }
 
-  login () {
+  login() {
     // console.log('Login from class being fired');
     this.auth0.authorize()
   }
 
-  logout () {
+  logout() {
     // Clear Access Token and ID Token from local storage
     localStorage.removeItem('access_token')
     localStorage.removeItem('id_token')
@@ -47,8 +47,10 @@ export default class AuthService {
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
     // router.replace('home')
+    //added this below for test Hunter test casing.NOT PERMANENT.
+    localStorage.removeItem('moviesSaved')
   }
-  setSession (authResult) {
+  setSession(authResult) {
     // Set the time that the Access Token will expire at
     let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
@@ -56,9 +58,12 @@ export default class AuthService {
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    if (!localStorage.moviesSaved) {
+      localStorage.setItem('moviesSaved',0)
+    }
     this.authNotifier.emit('authChange', { authenticated: true })
   }
-  isAuthenticated () {
+  isAuthenticated() {
     // Check whether the current time is past the
     // Access Token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'))
