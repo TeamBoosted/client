@@ -16,7 +16,7 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'boostedsearch.auth0.com',
     clientID: 'Q7hNTc_gnIGYk3cVe8ewkTnUvd_5PEYA',
-    redirectUri: 'http://localhost:8080/',
+    redirectUri: 'http://localhost:80/',
     responseType: 'token id_token',
     scope: 'openid'
   });
@@ -39,13 +39,11 @@ export default class AuthService {
   logout() {
     // Clear Access Token and ID Token from local storage
     localStorage.removeItem('access_token')
-    localStorage.removeItem('id_token')
     localStorage.removeItem('expires_at')
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
     //added this below for test Hunter test casing.NOT PERMANENT.
-    localStorage.removeItem('moviesSaved')
   }
   setSession(authResult) {
     // Set the time that the Access Token will expire at
@@ -53,10 +51,12 @@ export default class AuthService {
       authResult.expiresIn * 1000 + new Date().getTime()
     )
     localStorage.setItem('access_token', authResult.accessToken)
-    localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
+    if (!localStorage.id_token) {
+      localStorage.setItem('id_token', authResult.idToken)
+    }
     if (!localStorage.moviesSaved) {
-      localStorage.setItem('moviesSaved',0)
+      localStorage.setItem('moviesSaved', 0)
     }
     this.authNotifier.emit('authChange', { authenticated: true })
   }
