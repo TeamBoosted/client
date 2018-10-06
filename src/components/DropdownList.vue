@@ -35,12 +35,12 @@ export default {
         .then(function(response) {
           //getting reccs
           get(`https://localhost:80/api/rec/movies/${this.movie.id}`)
-            .then(response => {
-              if (!localStorage.reccommendations){
-                localStorage.setItem('recommendations', response);
-              }
-              localStorage.recommendations.push(response);
-            })
+            // .then(response => {
+            //   if (!localStorage.reccommendations){
+            //     localStorage.setItem('recommendations', response);
+            //   }
+            //   localStorage.recommendations.push(response);
+            // })
           })
         .catch(function(error) {
           console.log('saving movie to DB or getting movie recs failed',error);
@@ -49,7 +49,7 @@ export default {
     toggleSearchResults: function() {
       // console.log('hey man!')
       this.$emit("toggleSearchResults", this.movie.title);
-    }
+    },
   }
 };
 </script>

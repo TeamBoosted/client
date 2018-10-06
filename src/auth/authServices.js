@@ -16,7 +16,7 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'boostedsearch.auth0.com',
     clientID: 'Q7hNTc_gnIGYk3cVe8ewkTnUvd_5PEYA',
-    redirectUri: 'http://localhost:80/',
+    redirectUri: 'http://localhost:8080/',
     responseType: 'token id_token',
     scope: 'openid'
   });
