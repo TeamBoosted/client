@@ -20,19 +20,19 @@
 </template>
 
 <script>
-import axios from "axios";
-import dummyData from "../assets/dummyData.js";
-import DropdownList from "./DropdownList";
+import axios from 'axios';
+import dummyData from '../assets/dummyData.js';
+import DropdownList from './DropdownList';
 
 export default {
-  name: "SearchBar",
+  name: 'SearchBar',
   components: {
     DropdownList
   },
-  props: ["search", "saveToDatabase", "getRecs"],
+  props: ['search', 'saveToDatabase', 'getRecs'],
   data () {
     return {
-      input: "",
+      input: '',
       movies: [],
       showSearchResults: true
     };
@@ -42,7 +42,7 @@ export default {
     searchForMovie: function() {
       //axios request here
       let currentThis = this;
-      this.$emit("searchedForMovie");
+      this.$emit('searchedForMovie');
 
       axios
         .get(`http://localhost:80/api/info/movies/${this.input}`)
@@ -50,7 +50,7 @@ export default {
           currentThis.movies = response.data;
         })
         .catch(function(error) {
-          console.log("client to SERVER failed", error);
+          console.log('client to SERVER failed', error);
         });
     },
    
