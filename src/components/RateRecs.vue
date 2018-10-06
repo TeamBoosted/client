@@ -1,10 +1,10 @@
 <template>
   <div>
       <div class=“block”>
-           <b-icon
-               icon=“account”
-               size=“is-small”>
-           </b-icon>
+        <b-icon
+            icon=“account”
+            size=“is-small”>
+        </b-icon>
       </div>
     <input type="text" v-model="input">
     <button @click="searchForMovie();  showSearchResults = true">Search</button>
@@ -21,8 +21,6 @@
     </div>
   </div>
 </template>
-
-
 
 <script>
 import axios from 'axios';
