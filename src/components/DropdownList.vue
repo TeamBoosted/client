@@ -1,8 +1,8 @@
 <template>
   <ul>
-    <li class="title" @click="toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
+    <li class="title" @click="toggleSearchResults(); saveToDatabase()">{{movie.title}}</li>
       <ul>
-        <img :src="img" class='poster' @click="toggleSearchResults(); saveToDatabase()">
+        <img :src="img + movie.image" class='poster' @click="toggleSearchResults(); saveToDatabase()">
         <li>{{movie.synopsis}}</li>
       </ul>
     </ul>
@@ -14,12 +14,12 @@ export default {
   name: "DropdownList",
   props: ["movie"],
   data () {
+    console.log('HERE IS THE MOVIE OBJECT',this.movie.image)
     return {
-      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2/${this.movie.poster_path}`
+      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2`
     }
   },
   methods: {
-    
     saveToDatabase: function() {
       let currentThis = this;
       localStorage.moviesSaved++
