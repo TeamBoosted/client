@@ -58,7 +58,7 @@ export default class AuthService {
     localStorage.setItem('access_token', authResult.accessToken)
     localStorage.setItem('id_token', authResult.idToken)
     localStorage.setItem('expires_at', expiresAt)
-    if (! localStorage.moviesSaved) {
+    if (!localStorage.moviesSaved) {
       localStorage.setItem('moviesSaved',0)
     }
     this.authNotifier.emit('authChange', { authenticated: true })
