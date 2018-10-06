@@ -6,11 +6,11 @@
         <div class="block">
           <i class="material-icons" @click="thumbsUp(); voted()">thumb_up</i>
           </div>  
-        <img :src="img + movie.poster_path" class='poster' @click="toggleSearchResults(); saveToDatabase()">
+        <img :src="img + movie.image" class='poster' @click="toggleSearchResults(); saveToDatabase()">
         <br>
         <br>
         <i class="material-icons" @click="thumbsDown(); voted()">thumb_down</i>
-        <li>{{movie.overview}}</li>
+        <li>{{movie.synopsis}}</li>
 
       </ul>
     </ul>
