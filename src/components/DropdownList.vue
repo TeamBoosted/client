@@ -3,7 +3,7 @@
     <li class="title" @click="toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
       <ul>
         <img :src="img" class='poster' @click="toggleSearchResults(); saveToDatabase()">
-        <li>{{movie.overview}}</li>
+        <li>{{movie.synopsis}}</li>
       </ul>
     </ul>
 </template>
@@ -35,6 +35,12 @@ export default {
         .then(function(response) {
           //getting reccs
           get(`https://localhost:80/api/rec/movies/${this.movie.id}`)
+            .then(response => {
+              if (!localStorage.reccommendations){
+                localStorage.setItem('recommendations', response);
+              }
+              localStorage.recommendations.push(response);
+            })
           })
         .catch(function(error) {
           console.log('saving movie to DB or getting movie recs failed',error);
