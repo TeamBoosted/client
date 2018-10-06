@@ -6,26 +6,24 @@
         <div class="block">
           <i class="material-icons" @click="thumbsUp(); voted()">thumb_up</i>
           </div>  
-        <img :src="img" class='poster' @click="toggleSearchResults(); saveToDatabase()">
+        <img :src="img + movie.poster_path" class='poster' @click="toggleSearchResults(); saveToDatabase()">
         <br>
         <br>
         <i class="material-icons" @click="thumbsDown(); voted()">thumb_down</i>
-        <li>{{movie.synopsis}}</li>
+        <li>{{movie.overview}}</li>
 
       </ul>
     </ul>
 </template>
 
 <script>
-import { get, post } from "axios";
+import axios from "axios";
 export default {
   name: "DropdownList",
   props: ["movie"],
   data() {
     return {
-      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2/${
-        this.movie.image
-      }`,
+      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2`,
       wasVoted: true
     };
   },
@@ -34,12 +32,12 @@ export default {
       let currentThis = this;
       console.log('Thumbs up! wooohooo!')
       //upvoting to DB  
-      post(`http://localhost:8081/db/addMedium`, {
+      axios.post(`http://localhost:8081/db/addMedium`, {
         data: currentThis.movie
       })
         .then(function(response) {
           //getting reccs
-          get(`https://localhost:80/api/rec/movies/${this.movie.id}`);
+        axios.get(`https://localhost:80/api/rec/movies/${this.movie.id}`);
         })
         .catch(function(error) {
           console.log("saving movie to DB or getting movie recs failed", error);
