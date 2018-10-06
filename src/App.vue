@@ -3,7 +3,7 @@
     <Header v-show="searched" />
     <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
     
-    <template v-if="this.localStorage.moviesSaved > 2">
+    <template v-if="localStorage.moviesSaved > 2">
       <RateRecs
         v-bind:movies="recommendations"
         v-bind:getRecs="getRecs"
@@ -15,7 +15,7 @@
       </button>
     </template>
 
-    <template v-if="authenticated && this.localStorage.moviesSaved < 3">
+    <template v-if="authenticated && localStorage.moviesSaved < 3">
       <span v-if="searched">
         <LandingPage />
      </span>
@@ -87,6 +87,7 @@ export default {
     saveToDatabase: function(movie) {
       localStorage.moviesSaved++;
       //posting movie to db
+      console.log('this.saved', this.saved);
       axios
         .post(`/api/db/addMedium`, {
           data: {
@@ -103,6 +104,7 @@ export default {
           //   }
           //   localStorage.recommendations.push(response);
           // })
+          // this.$emit('Saved');
         })
         .catch(function(error) {
           console.log("saving movie to DB or getting movie recs failed", error);
@@ -110,17 +112,33 @@ export default {
     },
     getRecs: function(movie) {
       axios
-        .get(`http://localhost:80/api/rec/movies/${movie.moviedb_id}`)
+        .get(`/api/rec/movies/${movie.moviedb_id}`)
         .then(response => {
           const data = response.data;
           this.recommendations.push(...data);
           console.log("this.recommendations", this.recommendations);
+          this.$forceUpdate();
         })
         .catch(console.log);
     },
     login,
     logout
-  }
+  },
+  // created () {
+  //   if (this.localStorage.moviesSaved > 3 && this.recommendations.length < 1) {
+  //     // axios
+  //     //   .post('/db/getLastThreeMedia',{
+  //     //     data: {
+  //     //       id_token: this.localStorage.id_token
+  //     //     }
+  //     //   })
+  //     //   .then(response=> {
+  //     //     this.recommendations = response
+  //     //   })
+
+  //     this.recommendations = ['HEY MAN IT IS ME']
+  //   }
+  // }
 };
 </script>
 
