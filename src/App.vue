@@ -124,21 +124,28 @@ export default {
     login,
     logout
   },
-  // created () {
-  //   if (this.localStorage.moviesSaved > 3 && this.recommendations.length < 1) {
-  //     // axios
-  //     //   .post('/db/getLastThreeMedia',{
-  //     //     data: {
-  //     //       id_token: this.localStorage.id_token
-  //     //     }
-  //     //   })
-  //     //   .then(response=> {
-  //     //     this.recommendations = response
-  //     //   })
+  mounted: function() {
+    console.log('------ what is localStorage ------', localStorage);
+    if (localStorage.moviesSaved >= 3 && this.recommendations.length < 1) {
+     
+      axios
+        .post('/api/db/getLastThreeMedia',{
+          data: {
+            id_token: localStorage.id_token
+          }
+        })
+        .then(response => {
+          const body = [];
+          response.data.forEach(rec => {
+            body.push(...rec);
+          })
+          this.recommendations = body;
 
-  //     this.recommendations = ['HEY MAN IT IS ME']
-  //   }
-  // }
+        })
+
+      // this.recommendations = ['HEY MAN IT IS ME']
+    }
+  }
 };
 </script>
 
