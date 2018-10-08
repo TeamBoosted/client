@@ -7,6 +7,7 @@
         v-for="movie in this.movies"
         v-bind:key="movie.id"
         v-bind:movie="movie"
+        v-bind:getRecs="getRecs"
         >
         </MovieRec >
       </ul>
@@ -15,22 +16,19 @@
 </template>
 
 <script>
-import axios from 'axios';
-import MovieRec from './MovieRec';
-
+import axios from "axios";
+import MovieRec from "./MovieRec";
 
 export default {
-  name: 'SearchBar',
+  name: "SearchBar",
   components: {
     MovieRec
   },
-  props: ['search', 'movies'],
-  data: function () {
-    
+  props: ["search", "movies", "getRecs"],
+  data: function() {
     return {
       input: ""
-    }
-  },
-  
-}
+    };
+  }
+};
 </script>

@@ -4,7 +4,7 @@
     <li class="title" @click="toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
       <ul>
         <div class="block">
-          <i class="material-icons" @click="thumbsUp(); voted()">thumb_up</i>
+          <i class="material-icons" @click="thumbsUp(movie); voted(); getRecs(movie)">thumb_up</i>
           </div>  
         <img :src="img + movie.image" class='poster' @click="toggleSearchResults(); saveToDatabase()">
         <br>
@@ -20,7 +20,7 @@
 import axios from "axios";
 export default {
   name: "DropdownList",
-  props: ["movie"],
+  props: ["movie", "getRecs"],
   data() {
     return {
       img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2`,
@@ -28,26 +28,29 @@ export default {
     };
   },
   methods: {
-    thumbsUp: function() {
-      let currentThis = this;
-      console.log('Thumbs up! wooohooo!')
-      //upvoting to DB  
-      axios.post(`http://localhost:8081/db/addMedium`, {
-        data: currentThis.movie
-      })
-        .then(function(response) {
-          //getting reccs
-        axios.get(`https://localhost:80/api/rec/movies/${this.movie.id}`);
+    thumbsUp: function(movie) {
+      console.log("Thumbs up! wooohooo!");
+      //upvoting to DB
+      axios
+        .post(`/api/db/addMedium`, {
+          data: {
+            movie,
+            user: localStorage.id_token
+          }
         })
+        // .then(function(response) {
+        //   //getting reccs
+        //   axios.get(`https://localhost:80/api/rec/movies/${this.movie.id}`);
+        // })
         .catch(function(error) {
           console.log("saving movie to DB or getting movie recs failed", error);
         });
     },
-    thumbsDown: function () {
-       console.log('Thumbs Down, booo')
+    thumbsDown: function() {
+      console.log("Thumbs Down, booo");
     },
-    voted: function () {
-      this.wasVoted = !this.wasVoted
+    voted: function() {
+      this.wasVoted = !this.wasVoted;
     }
   }
 };
@@ -60,10 +63,10 @@ export default {
 }
 
 .material-icons {
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
-  font-size: 24px;  /* Preferred icon size */
+  font-size: 24px; /* Preferred icon size */
   display: inline-block;
   line-height: 1;
   text-transform: none;
@@ -81,6 +84,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 
   /* Support for IE. */
-  font-feature-settings: 'liga';
+  font-feature-settings: "liga";
 }
 </style>
