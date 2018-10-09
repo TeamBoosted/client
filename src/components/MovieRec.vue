@@ -32,7 +32,7 @@ export default {
       console.log("Thumbs up! wooohooo!");
       //upvoting to DB
       axios
-        .post(`/api/db/addMedium`, {
+        .post(`http://localhost:80/api/db/addMedium`, {
           data: {
             movie,
             user: localStorage.id_token
