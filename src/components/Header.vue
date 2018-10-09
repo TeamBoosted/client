@@ -25,7 +25,7 @@
     text-align: center;
   }
   h4 {
-    color:lightsteelblue;
+    color:rgba(83, 107, 138, 0.5);
     text-align: center;
   }
 </style>

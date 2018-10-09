@@ -8,11 +8,12 @@
         v-bind:movies="recommendations"
         v-bind:getRecs="getRecs"
       />
-      <button
+      <a
+        class="button is-light"
         v-if="authenticated"
         @click="logout()">
         Log Out
-      </button>
+      </a>
     </template>
 
     <template v-if="authenticated && localStorage.moviesSaved < 3">
@@ -26,19 +27,23 @@
         v-bind:getRecs="getRecs"
       />
 
-       <button
+       <a
+        class="button is-light"
         v-if="authenticated"
         @click="logout()">
         Log Out
-      </button>
+      </a>
     </template>
 
     <template v-if="!authenticated">
-       <button
+      <div>
+       <a
+        class="button is-light"
         v-if="!authenticated" 
         @click="login()">
         Log-in
-      </button>      
+      </a>   
+      </div>   
     </template>
     
   </div>
@@ -89,7 +94,7 @@ export default {
       //posting movie to db
       console.log('this.saved', this.saved);
       axios
-        .post(`/api/db/addMedium`, {
+        .post(`http://localhost:80/api/db/addMedium`, {
           data: {
             movie,
             user: localStorage.id_token
@@ -112,7 +117,7 @@ export default {
     },
     getRecs: function(movie) {
       axios
-        .get(`/api/rec/movies/${movie.moviedb_id}`)
+        .get(`http://localhost:80/api/rec/movies/${movie.moviedb_id}`)
         .then(response => {
           const data = response.data;
           this.recommendations.push(...data);
@@ -124,21 +129,27 @@ export default {
     login,
     logout
   },
-  // created () {
-  //   if (this.localStorage.moviesSaved > 3 && this.recommendations.length < 1) {
-  //     // axios
-  //     //   .post('/db/getLastThreeMedia',{
-  //     //     data: {
-  //     //       id_token: this.localStorage.id_token
-  //     //     }
-  //     //   })
-  //     //   .then(response=> {
-  //     //     this.recommendations = response
-  //     //   })
+  updated: function() {
+    if (localStorage.moviesSaved >= 3 && this.recommendations.length < 1 && this.authenticated) {
+     
+      axios
+        .post('http://localhost:80/api/db/getLastThreeMedia',{
+          data: {
+            id_token: localStorage.id_token
+          }
+        })
+        .then(response => {
+          const body = [];
+          response.data.forEach(rec => {
+            body.push(...rec);
+          })
+          this.recommendations = body;
 
-  //     this.recommendations = ['HEY MAN IT IS ME']
-  //   }
-  // }
+        })
+
+      // this.recommendations = ['HEY MAN IT IS ME']
+    }
+  }
 };
 </script>
 
