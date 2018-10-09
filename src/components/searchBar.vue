@@ -1,7 +1,7 @@
 <template>
   <div>
     <input type="text" v-model="input">
-    <button @click="searchForMovie();  showSearchResults = true">Search</button>
+    <a class="button is-light" @click="searchForMovie();  showSearchResults = true">Search</a>
     <div v-if="movies.length > 0"  >
       <ul>
         <DropdownList 
