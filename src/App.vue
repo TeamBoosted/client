@@ -73,7 +73,8 @@ export default {
       authenticated,
       searched: true,
       localStorage: localStorage,
-      recommendations: []
+      recommendations: [],
+      index: 0
     };
   },
   components: {
@@ -92,7 +93,7 @@ export default {
     saveToDatabase: function(movie) {
       localStorage.moviesSaved++;
       //posting movie to db
-      console.log('this.saved', this.saved);
+      console.log("this.saved", this.saved);
       axios
         .post(`http://localhost:80/api/db/addMedium`, {
           data: {
@@ -130,10 +131,13 @@ export default {
     logout
   },
   updated: function() {
-    if (localStorage.moviesSaved >= 3 && this.recommendations.length < 1 && this.authenticated) {
-     
+    if (
+      localStorage.moviesSaved >= 3 &&
+      this.recommendations.length < 1 &&
+      this.authenticated
+    ) {
       axios
-        .post('http://localhost:80/api/db/getLastThreeMedia',{
+        .post("http://localhost:80/api/db/getLastThreeMedia", {
           data: {
             id_token: localStorage.id_token
           }
@@ -142,10 +146,9 @@ export default {
           const body = [];
           response.data.forEach(rec => {
             body.push(...rec);
-          })
+          });
           this.recommendations = body;
-
-        })
+        });
 
       // this.recommendations = ['HEY MAN IT IS ME']
     }

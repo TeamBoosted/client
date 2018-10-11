@@ -1,16 +1,16 @@
 
 <template>
-  <ul v-if="wasVoted">
-    <li class="title" @click="toggleSearchResults(); saveToDatabase()" >{{movie.title}}</li>
+  <ul>
+    <li class="title" @click="toggleSearchResults(); saveToDatabase()" >{{currentMovie.title}}</li>
       <ul>
         <div class="block">
-          <i class="material-icons" @click="thumbsUp(movie); voted(); getRecs(movie)">thumb_up</i>
+          <i class="material-icons" @click="thumbsUp(currentMovie); voted(); getRecs(currentMovie); increment();">thumb_up</i>
           </div>  
-        <img :src="img + movie.image" class='poster' @click="toggleSearchResults(); saveToDatabase()">
+        <img :src="img + currentMovie.image" class='poster' @click="toggleSearchResults(); saveToDatabase(); increment();">
         <br>
         <br>
-        <i class="material-icons" @click="thumbsDown(); voted()">thumb_down</i>
-        <li>{{movie.synopsis}}</li>
+        <i class="material-icons" @click="thumbsDown(); voted(); increment();">thumb_down</i>
+        <li>{{currentMovie.synopsis}}</li>
 
       </ul>
     </ul>
@@ -19,15 +19,25 @@
 <script>
 import axios from "axios";
 export default {
-  name: "DropdownList",
-  props: ["movie", "getRecs"],
+  name: "MovieRec",
+  props: ["movies", "getRecs"],
   data() {
     return {
       img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2`,
-      wasVoted: true
+      wasVoted: true,
+      index: 0
     };
   },
+  computed: {
+    currentMovie: function() {
+      console.log(this.movies[this.index]);
+      return this.movies[this.index];
+    }
+  },
   methods: {
+    increment: function() {
+      this.index = this.index + 1;
+    },
     thumbsUp: function(movie) {
       console.log("Thumbs up! wooohooo!");
       //upvoting to DB
@@ -37,6 +47,9 @@ export default {
             movie,
             user: localStorage.id_token
           }
+        })
+        .then(() => {
+          this.$forceUpdate();
         })
         // .then(function(response) {
         //   //getting reccs
