@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import MovieRec from "./MovieRec";
 
 export default {

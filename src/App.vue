@@ -56,6 +56,7 @@ import Header from "./components/Header";
 import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import axios from "axios";
+import addMediumService from "./services/addMediumService.js";
 
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
@@ -94,27 +95,7 @@ export default {
       localStorage.moviesSaved++;
       //posting movie to db
       console.log("this.saved", this.saved);
-      axios
-        .post(`http://localhost:80/api/db/addMedium`, {
-          data: {
-            movie,
-            user: localStorage.id_token
-          }
-        })
-        .then(function(response) {
-          //getting reccs
-          // get(`https://localhost:80/api/rec/movies/${this.movie.id}`)
-          // .then(response => {
-          //   if (!localStorage.reccommendations){
-          //     localStorage.setItem('recommendations', response);
-          //   }
-          //   localStorage.recommendations.push(response);
-          // })
-          // this.$emit('Saved');
-        })
-        .catch(function(error) {
-          console.log("saving movie to DB or getting movie recs failed", error);
-        });
+      addMediumService(movie, localStorage.id_token);
     },
     getRecs: function(movie) {
       axios
