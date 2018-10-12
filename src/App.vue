@@ -56,7 +56,9 @@ import Header from "./components/Header";
 import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import axios from "axios";
-
+import addMediumService from "./services/addMediumService.js";
+import getRecsService from "./services/getRecsService.js";
+import getLastThreeService from "./services/getLastThreeService.js";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 
@@ -73,7 +75,8 @@ export default {
       authenticated,
       searched: true,
       localStorage: localStorage,
-      recommendations: []
+      recommendations: [],
+      index: 0
     };
   },
   components: {
@@ -91,63 +94,30 @@ export default {
     },
     saveToDatabase: function(movie) {
       localStorage.moviesSaved++;
-      //posting movie to db
-      console.log('this.saved', this.saved);
-      axios
-        .post(`http://localhost:80/api/db/addMedium`, {
-          data: {
-            movie,
-            user: localStorage.id_token
-          }
-        })
-        .then(function(response) {
-          //getting reccs
-          // get(`https://localhost:80/api/rec/movies/${this.movie.id}`)
-          // .then(response => {
-          //   if (!localStorage.reccommendations){
-          //     localStorage.setItem('recommendations', response);
-          //   }
-          //   localStorage.recommendations.push(response);
-          // })
-          // this.$emit('Saved');
-        })
-        .catch(function(error) {
-          console.log("saving movie to DB or getting movie recs failed", error);
-        });
+      addMediumService(movie, localStorage.id_token);
     },
-    getRecs: function(movie) {
-      axios
-        .get(`http://localhost:80/api/rec/movies/${movie.moviedb_id}`)
-        .then(response => {
-          const data = response.data;
-          this.recommendations.push(...data);
-          console.log("this.recommendations", this.recommendations);
-          this.$forceUpdate();
-        })
-        .catch(console.log);
+    getRecs: async function(movie) {
+      let response = await getRecsService(movie);
+      const data = response.data;
+      this.recommendations.push(...data);
+      console.log("this.recommendations", this.recommendations);
+      this.$forceUpdate();
     },
     login,
     logout
   },
-  updated: function() {
-    if (localStorage.moviesSaved >= 3 && this.recommendations.length < 1 && this.authenticated) {
-     
-      axios
-        .post('http://localhost:80/api/db/getLastThreeMedia',{
-          data: {
-            id_token: localStorage.id_token
-          }
-        })
-        .then(response => {
-          const body = [];
-          response.data.forEach(rec => {
-            body.push(...rec);
-          })
-          this.recommendations = body;
-
-        })
-
-      // this.recommendations = ['HEY MAN IT IS ME']
+  updated: async function() {
+    if (
+      localStorage.moviesSaved >= 3 &&
+      this.recommendations.length < 1 &&
+      this.authenticated
+    ) {
+      let response = await getLastThreeService(localStorage.id_token);
+      const body = [];
+      response.data.forEach(rec => {
+        body.push(...rec);
+      });
+      this.recommendations = body;
     }
   }
 };
