@@ -57,7 +57,7 @@ import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import axios from "axios";
 import addMediumService from "./services/addMediumService.js";
-
+import getRecsService from "./services/getRecsService.js";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 
@@ -93,20 +93,15 @@ export default {
     },
     saveToDatabase: function(movie) {
       localStorage.moviesSaved++;
-      //posting movie to db
-      console.log("this.saved", this.saved);
       addMediumService(movie, localStorage.id_token);
     },
     getRecs: function(movie) {
-      axios
-        .get(`http://localhost:80/api/rec/movies/${movie.moviedb_id}`)
-        .then(response => {
-          const data = response.data;
-          this.recommendations.push(...data);
-          console.log("this.recommendations", this.recommendations);
-          this.$forceUpdate();
-        })
-        .catch(console.log);
+      getRecsService(movie, response => {
+        const data = response.data;
+        this.recommendations.push(...data);
+        console.log("this.recommendations", this.recommendations);
+        this.$forceUpdate();
+      });
     },
     login,
     logout
@@ -130,8 +125,6 @@ export default {
           });
           this.recommendations = body;
         });
-
-      // this.recommendations = ['HEY MAN IT IS ME']
     }
   }
 };

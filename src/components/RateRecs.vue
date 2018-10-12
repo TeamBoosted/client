@@ -22,7 +22,7 @@ export default {
   components: {
     MovieRec
   },
-  props: ["movies", "getRecs", "currentMovie"],
+  props: ["movies", "getRecs"],
   data: function() {
     return {};
   },

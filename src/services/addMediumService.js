@@ -1,12 +1,16 @@
 import axios from "axios";
 
-const addMediumService = (movie, user) => {
+const addMediumService = (movie, user, cb) => {
   return axios.post(`http://localhost:80/api/db/addMedium`, {
     data: {
       movie,
       user
     }
-  }).catch(console.log);
+  })
+    .then(res => {
+      if (cb) cb(res);
+    })
+    .catch(console.log);
 };
 
 export default addMediumService;
