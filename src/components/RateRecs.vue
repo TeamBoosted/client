@@ -4,10 +4,8 @@
     <p> Give us at thumbs up or thumbs down on the following movies. We will save them to your profile! </p>
     <div v-if="movies.length > 0" >
       <ul>
-        <MovieRec 
-        v-for="movie in this.movies"
-        v-bind:key="movie.id"
-        v-bind:movie="movie"
+        <MovieRec
+        v-bind:movies="movies"
         v-bind:getRecs="getRecs"
         >
         </MovieRec >
@@ -17,19 +15,13 @@
 </template>
 
 <script>
-import axios from "axios";
 import MovieRec from "./MovieRec";
 
 export default {
-  name: "SearchBar",
+  name: "RateRecs",
   components: {
     MovieRec
   },
-  props: ["search", "movies", "getRecs"],
-  data: function() {
-    return {
-      input: ""
-    };
-  }
+  props: ["movies", "getRecs"]
 };
 </script>
