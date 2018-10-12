@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import MovieRec from "./MovieRec";
 
 export default {
@@ -23,11 +22,6 @@ export default {
   components: {
     MovieRec
   },
-  props: ["movies", "getRecs", "currentMovie"],
-  data: function() {
-    return {};
-  },
-  methods: {},
-  computed: {}
+  props: ["movies", "getRecs"]
 };
 </script>
