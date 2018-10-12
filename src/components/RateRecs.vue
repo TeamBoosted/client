@@ -22,11 +22,6 @@ export default {
   components: {
     MovieRec
   },
-  props: ["movies", "getRecs"],
-  data: function() {
-    return {};
-  },
-  methods: {},
-  computed: {}
+  props: ["movies", "getRecs"]
 };
 </script>

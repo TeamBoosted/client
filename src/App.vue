@@ -58,6 +58,7 @@ import RateRecs from "./components/RateRecs";
 import axios from "axios";
 import addMediumService from "./services/addMediumService.js";
 import getRecsService from "./services/getRecsService.js";
+import getLastThreeService from "./services/getLastThreeService.js";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 
@@ -95,36 +96,28 @@ export default {
       localStorage.moviesSaved++;
       addMediumService(movie, localStorage.id_token);
     },
-    getRecs: function(movie) {
-      getRecsService(movie, response => {
-        const data = response.data;
-        this.recommendations.push(...data);
-        console.log("this.recommendations", this.recommendations);
-        this.$forceUpdate();
-      });
+    getRecs: async function(movie) {
+      let response = await getRecsService(movie);
+      const data = response.data;
+      this.recommendations.push(...data);
+      console.log("this.recommendations", this.recommendations);
+      this.$forceUpdate();
     },
     login,
     logout
   },
-  updated: function() {
+  updated: async function() {
     if (
       localStorage.moviesSaved >= 3 &&
       this.recommendations.length < 1 &&
       this.authenticated
     ) {
-      axios
-        .post("http://localhost:80/api/db/getLastThreeMedia", {
-          data: {
-            id_token: localStorage.id_token
-          }
-        })
-        .then(response => {
-          const body = [];
-          response.data.forEach(rec => {
-            body.push(...rec);
-          });
-          this.recommendations = body;
-        });
+      let response = await getLastThreeService(localStorage.id_token);
+      const body = [];
+      response.data.forEach(rec => {
+        body.push(...rec);
+      });
+      this.recommendations = body;
     }
   }
 };

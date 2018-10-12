@@ -40,9 +40,7 @@ export default {
       }
     },
     thumbsUp: function(movie) {
-      addMediumService(movie, localStorage.id_token, () => {
-        this.$forceUpdate();
-      });
+      addMediumService(movie, localStorage.id_token);
     },
     thumbsDown: function() {
       console.log("Thumbs Down, booo");
