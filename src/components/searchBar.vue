@@ -1,7 +1,11 @@
 <template>
   <div>
+    <input type="radio" value="movie" v-model="mediumType">
+    <label>Movie</label>
+    <input type="radio" value="tv" v-model="mediumType">
+    <label>TV</label>
     <input type="text" v-model="input">
-    <a class="button is-light" @click="searchForMovie();  showSearchResults = true">Search</a>
+    <a class="button is-light" @click="searchForMedium();  showSearchResults = true">Search</a>
     <div v-if="movies.length > 0"  >
       <ul>
         <DropdownList 
@@ -20,10 +24,10 @@
 </template>
 
 <script>
-import axios from "axios";
 import dummyData from "../assets/dummyData.js";
 import DropdownList from "./DropdownList";
 import getMovieService from "../services/getMovieService.js";
+import getTvService from "../services/getTvService.js";
 
 export default {
   name: "SearchBar",
@@ -34,17 +38,23 @@ export default {
   data() {
     return {
       input: "",
+      mediumType: "movie",
       movies: [],
       showSearchResults: true
     };
   },
 
   methods: {
-    searchForMovie: async function() {
+    searchForMedium: async function() {
       //axios request here
       this.$emit("searchedForMovie");
-      let response = await getMovieService(this.input);
-      this.movies = response.data;
+      if (this.mediumType === "movie") {
+        let movieResponse = await getMovieService(this.input);
+        this.movies = movieResponse.data;
+      } else if (this.mediumType === "tv") {
+        let tvResponse = await getTvService(this.input);
+        this.movies = tvResponse.data;
+      }
     },
 
     toggleSearchResults: function(chosenMovie) {

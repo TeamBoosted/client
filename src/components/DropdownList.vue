@@ -9,7 +9,6 @@
 </template>
 
 <script>
-import { get, post } from "axios";
 export default {
   name: "DropdownList",
   props: ["movie", "saveToDatabase", "getRecs"],
