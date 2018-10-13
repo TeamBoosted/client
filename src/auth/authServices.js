@@ -43,7 +43,6 @@ export default class AuthService {
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
-    //added this below for test Hunter test casing.NOT PERMANENT.
   }
   setSession(authResult) {
     // Set the time that the Access Token will expire at
