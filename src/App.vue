@@ -97,8 +97,10 @@ export default {
       addMediumService(movie, localStorage.id_token);
     },
     getRecs: async function(movie) {
+      console.log('movie IS THIS SO I CAN TELL WHAT TYPE IS:',movie)
       let response = await getRecsService(movie);
       const data = response.data;
+      console.log('HERE IS THE TV OR MOVIE DATA',data)
       this.recommendations.push(...data);
       console.log("this.recommendations", this.recommendations);
       this.$forceUpdate();
@@ -116,6 +118,7 @@ export default {
       const body = [];
       response.data.forEach(rec => {
         body.push(...rec);
+        console.log('REC IS THIS:',rec)
       });
       this.recommendations = body;
     }
