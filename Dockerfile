@@ -9,10 +9,6 @@ RUN npm install
 # application code changes don't bust the docker cache of npm install step
 COPY . .
 
-RUN npm run build
-
-COPY . /data
-
 ENTRYPOINT /usr/bin/tail -f /dev/null
 
 CMD ["npm", "run", "build"]
