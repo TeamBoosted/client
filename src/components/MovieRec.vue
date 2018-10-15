@@ -6,7 +6,7 @@
         <div class="block">
           <i class="material-icons" @click="thumbsUp(currentMovie); getRecs(currentMovie); increment();">thumb_up</i>
           </div>  
-        <img :src="img + currentMovie.image" class='poster'>
+        <img :src="currentMovie.image" class='poster'>
         <br>
         <br>
         <i class="material-icons" @click="thumbsDown(); increment();">thumb_down</i>
@@ -24,7 +24,6 @@ export default {
   props: ["movies", "getRecs"],
   data() {
     return {
-      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2`,
       index: 0
     };
   },

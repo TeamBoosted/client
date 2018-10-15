@@ -4,6 +4,8 @@
     <label>Movie</label>
     <input type="radio" value="tv" v-model="mediumType">
     <label>TV</label>
+    <input type="radio" value="books" v-model="mediumType">
+    <label>Books</label>
     <input type="text" v-model="input">
     <a class="button is-light" @click="searchForMedium();  showSearchResults = true">Search</a>
     <div v-if="movies.length > 0"  >
@@ -16,6 +18,7 @@
         v-on:toggleSearchResults="toggleSearchResults($event)"
         v-bind:saveToDatabase="saveToDatabase"
         v-bind:getRecs="getRecs"
+        v-bind:mediumType="mediumType"
         >
         </DropdownList>
       </ul>
@@ -28,6 +31,8 @@ import dummyData from "../assets/dummyData.js";
 import DropdownList from "./DropdownList";
 import getMovieService from "../services/getMovieService.js";
 import getTvService from "../services/getTvService.js";
+import getBookService from "../services/getBookService.js";
+
 
 export default {
   name: "SearchBar",
@@ -54,6 +59,9 @@ export default {
       } else if (this.mediumType === "tv") {
         let tvResponse = await getTvService(this.input);
         this.movies = tvResponse.data;
+      } else if (this.mediumType === 'books') {
+        let bookResponse = await getBookService(this.input)
+        this.movies = bookResponse.data
       }
     },
 
