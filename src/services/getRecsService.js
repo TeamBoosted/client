@@ -2,14 +2,13 @@ import axios from "axios";
 
 const getRecsService = async (movie) => {
   try {
-    console.log('WHAT IST HE MOVIE TYPE',movie)
     let response;
     if (movie.type === "movie") {
       response = await axios.get(`http://localhost:80/api/rec/movies/${movie.moviedb_id}`);
     } else {
       response = await axios.get(`http://localhost:80/api/rec/tv/${movie.moviedb_id}`)
-      console.log('HERE IS THE RESPONSE:',response)
     }
+    console.log('Here is the recc:',response)
     return response;
   } catch (err) {
     console.log(err);
