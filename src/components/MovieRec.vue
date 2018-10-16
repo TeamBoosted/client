@@ -4,7 +4,7 @@
     <li class="title">{{currentMovie.title}}</li>
       <ul>
         <div class="block">
-          <i class="material-icons" @click="thumbsUp(currentMovie); getRecs(currentMovie); increment();">thumb_up</i>
+          <i class="material-icons" @click="thumbsUp(currentMovie); getGenreRecs(currentMovie); increment();">thumb_up</i>
           </div>  
         <img :src="currentMovie.image" class='poster'>
         <br>
@@ -21,7 +21,7 @@ import addMediumService from "../services/addMediumService.js";
 
 export default {
   name: "MovieRec",
-  props: ["movies", "getRecs"],
+  props: ["movies", "getRecs", "getGenreRecs"],
   data() {
     return {
       index: 0
