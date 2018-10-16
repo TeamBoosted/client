@@ -4,9 +4,9 @@
     <li class="title">{{currentMovie.title}}</li>
       <ul>
         <div class="block">
-          <i class="material-icons" @click="thumbsUp(currentMovie); getRecs(currentMovie); increment();">thumb_up</i>
+          <i class="material-icons" @click="thumbsUp(currentMovie); getGenreRecs(currentMovie); increment();">thumb_up</i>
           </div>  
-        <img :src="img + currentMovie.image" class='poster'>
+        <img :src="currentMovie.image" class='poster'>
         <br>
         <br>
         <i class="material-icons" @click="thumbsDown(); increment();">thumb_down</i>
@@ -21,16 +21,16 @@ import addMediumService from "../services/addMediumService.js";
 
 export default {
   name: "MovieRec",
-  props: ["movies", "getRecs"],
+  props: ["movies", "getRecs", "getGenreRecs"],
   data() {
     return {
-      img: `https://image.tmdb.org/t/p/w600_and_h900_bestv2`,
       index: 0
     };
   },
   computed: {
     currentMovie: function() {
       return this.movies[this.index];
+      //getting rid of duplicate log can go here
     }
   },
   methods: {
@@ -51,8 +51,8 @@ export default {
 
 <style scoped>
 .poster {
-  max-width: 25%;
-  max-height: 25%;
+  width: 20%;
+  height: 20%;
 }
 
 .material-icons {

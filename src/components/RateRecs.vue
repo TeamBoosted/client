@@ -7,6 +7,7 @@
         <MovieRec
         v-bind:movies="movies"
         v-bind:getRecs="getRecs"
+        v-bind:getGenreRecs="getGenreRecs"
         >
         </MovieRec >
       </ul>
@@ -22,6 +23,6 @@ export default {
   components: {
     MovieRec
   },
-  props: ["movies", "getRecs"]
+  props: ["movies", "getRecs", "getGenreRecs"]
 };
 </script>

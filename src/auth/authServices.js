@@ -16,7 +16,7 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'boostedsearch.auth0.com',
     clientID: 'Q7hNTc_gnIGYk3cVe8ewkTnUvd_5PEYA',
-    redirectUri: 'http://localhost:80/',
+    redirectUri: 'http://localhost:8080/',
     responseType: 'token id_token',
     scope: 'openid'
   });
@@ -43,7 +43,6 @@ export default class AuthService {
     this.userProfile = null
     this.authNotifier.emit('authChange', false)
     // navigate to the home route
-    //added this below for test Hunter test casing.NOT PERMANENT.
   }
   setSession(authResult) {
     // Set the time that the Access Token will expire at
