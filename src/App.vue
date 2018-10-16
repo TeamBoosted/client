@@ -172,30 +172,14 @@ export default {
       this.$forceUpdate();
     },
     toggleProfile: function () {
-<<<<<<< HEAD
-=======
       console.log('HEY MAN I AM TOGGLING THE PROFILE',this.profile)
       this.homeOrRecs = !this.homeOrRecs
->>>>>>> 4c062f8d5d372ff5cb508e6eb48ce0cfafd271c2
       this.profile = !this.profile;
     },
     getGenreRecs: async function(medium) {
       let response = await getRecsByGenreService(medium);
       this.recommendations.push(...response);
     },
-<<<<<<< HEAD
-    // filter: function(rec) {
-    //   const cache = {};
-    //   console.log('cache in computed property', cache);
-    //   return rec.filter(item => {
-    //     if(!cache[item]) {
-    //       cache[item] = true;
-    //       return item;
-    //     }
-    //   })
-    // },
-=======
->>>>>>> 4c062f8d5d372ff5cb508e6eb48ce0cfafd271c2
     login,
     logout
   },
@@ -212,12 +196,7 @@ export default {
           body.push(obj);
         })
       });
-<<<<<<< HEAD
       
-=======
-
-      //add book recs to body here
->>>>>>> 4c062f8d5d372ff5cb508e6eb48ce0cfafd271c2
       this.recommendations = body;
       //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
