@@ -4,4 +4,4 @@ else
   echo "Restarting container.."
   docker stop teamboosted-client && docker rm -v teamboosted-client
 fi
-docker pull danielkang674/teamboosted-client && docker run -v /data --name teamboosted-client -d danielkang674/teamboosted-client -f /dev/null
+docker pull danielkang674/teamboosted-client:latest && docker run -v /data --name teamboosted-client -d danielkang674/teamboosted-client:latest -f /dev/null
