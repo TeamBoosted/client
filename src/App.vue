@@ -122,7 +122,9 @@ import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import axios from "axios";
 import addMediumService from "./services/addMediumService.js";
-import getRecsService, { getRecsByGenreService } from "./services/getRecsService.js";
+import getRecsService, {
+  getRecsByGenreService
+} from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
 import Profile from "./components/Profile";
 const auth = new AuthService();
@@ -144,7 +146,7 @@ export default {
       recommendations: [],
       index: 0,
       profile: false,
-      homeOrRecs:true
+      homeOrRecs: true
     };
   },
   components: {
@@ -171,9 +173,9 @@ export default {
       this.recommendations.push(...data);
       this.$forceUpdate();
     },
-    toggleProfile: function () {
-      console.log('HEY MAN I AM TOGGLING THE PROFILE',this.profile)
-      this.homeOrRecs = !this.homeOrRecs
+    toggleProfile: function() {
+      console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
+      this.homeOrRecs = !this.homeOrRecs;
       this.profile = !this.profile;
     },
     getGenreRecs: async function(medium) {
@@ -194,9 +196,9 @@ export default {
       response.data.forEach(rec => {
         rec.forEach(obj => {
           body.push(obj);
-        })
+        });
       });
-      
+
       this.recommendations = body;
       //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
@@ -207,9 +209,9 @@ export default {
 
       const unique = this.recommendations.filter(rec => {
         // console.log('this recommendations', rec);
-        return cache[rec.title] ? false : (cache[rec.title] = true)
-      })
-      console.log('unique', unique);
+        return cache[rec.title] ? false : (cache[rec.title] = true);
+      });
+      console.log("unique", unique);
       return unique;
     }
   }
