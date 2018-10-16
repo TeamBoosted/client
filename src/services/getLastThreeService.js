@@ -6,7 +6,6 @@ const getLastThreeService = async (id_token) => {
       data: { id_token }
     });
     return response;
-    console.log('HEREIS THE RESPONSE ON REFRESH client side:',response)
   } catch (err) {
     console.log(err);
   }
