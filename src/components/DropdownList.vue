@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .poster {
-  max-width: 25%;
-  max-height: 25%;
+  width: 20%;
+  height: 20%;
 }
 </style>
