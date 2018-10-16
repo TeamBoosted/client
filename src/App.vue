@@ -3,7 +3,8 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="https://bulma.io">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+          <p id='nav-icon'>Boosted</p>
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -18,7 +19,12 @@
           <a class="navbar-item"
             @click="toggleProfile"  
           >
-            Home
+          <template v-if="homeOrRecs">
+            Profile
+          </template>
+            <template v-else>
+              Recommendations
+            </template>
           </a>
 
           <a class="navbar-item">
@@ -68,15 +74,16 @@
         </div>
       </div>
     </nav>  
-
+<!-- ---------------------------------------END NAVBAR-------------------------------- -->
 
     <template v-if="profile">
       <Profile />
     </template>
     <template v-else-if="!profile">
-      
-    <Header v-show="searched" />
-    <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
+    <template v-if="recommendations.length < 15">
+      <Header />
+      <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
+    </template>  
     
     <template v-if="localStorage.moviesSaved > 2">
       <RateRecs
@@ -84,12 +91,7 @@
         v-bind:getRecs="getRecs"
         v-bind:getGenreRecs="getGenreRecs"
       />
-      <a
-        class="button is-light"
-        v-if="authenticated"
-        @click="logout()">
-        Log Out
-      </a>
+      
       
     </template>
 
@@ -142,6 +144,7 @@ export default {
       recommendations: [],
       index: 0,
       profile: false,
+      homeOrRecs:true
     };
   },
   components: {
@@ -169,12 +172,18 @@ export default {
       this.$forceUpdate();
     },
     toggleProfile: function () {
+<<<<<<< HEAD
+=======
+      console.log('HEY MAN I AM TOGGLING THE PROFILE',this.profile)
+      this.homeOrRecs = !this.homeOrRecs
+>>>>>>> 4c062f8d5d372ff5cb508e6eb48ce0cfafd271c2
       this.profile = !this.profile;
     },
     getGenreRecs: async function(medium) {
       let response = await getRecsByGenreService(medium);
       this.recommendations.push(...response);
     },
+<<<<<<< HEAD
     // filter: function(rec) {
     //   const cache = {};
     //   console.log('cache in computed property', cache);
@@ -185,6 +194,8 @@ export default {
     //     }
     //   })
     // },
+=======
+>>>>>>> 4c062f8d5d372ff5cb508e6eb48ce0cfafd271c2
     login,
     logout
   },
@@ -201,8 +212,14 @@ export default {
           body.push(obj);
         })
       });
+<<<<<<< HEAD
       
+=======
+
+      //add book recs to body here
+>>>>>>> 4c062f8d5d372ff5cb508e6eb48ce0cfafd271c2
       this.recommendations = body;
+      //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
   },
   computed: {
