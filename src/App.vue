@@ -87,7 +87,7 @@
     
     <template v-if="localStorage.moviesSaved > 2">
       <RateRecs
-        v-bind:movies="recommendations"
+        v-bind:movies="filteredRecs"
         v-bind:getRecs="getRecs"
         v-bind:getGenreRecs="getGenreRecs"
       />
@@ -192,18 +192,26 @@ export default {
       let response = await getLastThreeService(localStorage.id_token);
       const body = [];
       response.data.forEach(rec => {
-        if (rec !== null) {
-          rec.forEach(obj => {
-            body.push(obj);
-          })
-        }
+        rec.forEach(obj => {
+          body.push(obj);
+        })
       });
-
-      //add book recs to body here
+      
       this.recommendations = body;
       //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
-    
+  },
+  computed: {
+    filteredRecs: function() {
+      const cache = {};
+
+      const unique = this.recommendations.filter(rec => {
+        // console.log('this recommendations', rec);
+        return cache[rec.title] ? false : (cache[rec.title] = true)
+      })
+      console.log('unique', unique);
+      return unique;
+    }
   }
 };
 </script>
