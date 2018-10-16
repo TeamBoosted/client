@@ -33,7 +33,6 @@ import getMovieService from "../services/getMovieService.js";
 import getTvService from "../services/getTvService.js";
 import getBookService from "../services/getBookService.js";
 
-
 export default {
   name: "SearchBar",
   components: {
@@ -59,9 +58,9 @@ export default {
       } else if (this.mediumType === "tv") {
         let tvResponse = await getTvService(this.input);
         this.movies = tvResponse.data;
-      } else if (this.mediumType === 'books') {
-        let bookResponse = await getBookService(this.input)
-        this.movies = bookResponse.data
+      } else if (this.mediumType === "books") {
+        let bookResponse = await getBookService(this.input);
+        this.movies = bookResponse.data;
       }
     },
 
