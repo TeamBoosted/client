@@ -7,6 +7,9 @@ WORKDIR /data
 
 # copy app source image ***AFTER*** npm install so that
 # application code changes don't bust the docker cache of npm install step
+
+RUN npm run build
+
 COPY . .
 
 ENTRYPOINT /usr/bin/tail -f /dev/null
