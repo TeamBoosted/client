@@ -3,7 +3,8 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="https://bulma.io">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+          <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
+          <p id='nav-icon'>Boosted</p>
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -18,7 +19,12 @@
           <a class="navbar-item"
             @click="toggleProfile"  
           >
-            Home
+          <template v-if="homeOrRecs">
+            Profile
+          </template>
+            <template v-else>
+              Recommendations
+            </template>
           </a>
 
           <a class="navbar-item">
@@ -68,27 +74,23 @@
         </div>
       </div>
     </nav>  
-
+<!-- ---------------------------------------END NAVBAR-------------------------------- -->
 
     <template v-if="profile">
       <Profile />
     </template>
     <template v-else-if="!profile">
-      
-    <Header v-show="searched" />
-    <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
+    <template v-if="recommendations.length < 15">
+      <Header />
+      <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
+    </template>  
     
     <template v-if="localStorage.moviesSaved > 2">
       <RateRecs
         v-bind:movies="recommendations"
         v-bind:getRecs="getRecs"
       />
-      <a
-        class="button is-light"
-        v-if="authenticated"
-        @click="logout()">
-        Log Out
-      </a>
+      
       
     </template>
 
@@ -141,6 +143,7 @@ export default {
       recommendations: [],
       index: 0,
       profile: false,
+      homeOrRecs:true
     };
   },
   components: {
@@ -172,6 +175,7 @@ export default {
     },
     toggleProfile: function () {
       console.log('HEY MAN I AM TOGGLING THE PROFILE',this.profile)
+      this.homeOrRecs = !this.homeOrRecs
       this.profile = !this.profile;
     },
     login,
@@ -183,7 +187,6 @@ export default {
       this.recommendations.length < 1 &&
       this.authenticated
     ) {
-      console.log('HEY MAN I AM UPDATED')
       let response = await getLastThreeService(localStorage.id_token);
       const body = [];
       response.data.forEach(rec => {
@@ -193,7 +196,10 @@ export default {
           })
         }
       });
+
+      //add book recs to body here
       this.recommendations = body;
+      //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
     
   }

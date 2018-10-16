@@ -30,6 +30,7 @@ export default {
   computed: {
     currentMovie: function() {
       return this.movies[this.index];
+      //getting rid of duplicate log can go here
     }
   },
   methods: {
@@ -50,8 +51,8 @@ export default {
 
 <style scoped>
 .poster {
-  max-width: 25%;
-  max-height: 25%;
+  width: 20%;
+  height: 20%;
 }
 
 .material-icons {
