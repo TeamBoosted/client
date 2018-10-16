@@ -89,6 +89,7 @@
       <RateRecs
         v-bind:movies="recommendations"
         v-bind:getRecs="getRecs"
+        v-bind:getGenreRecs="getGenreRecs"
       />
       
       
@@ -121,7 +122,7 @@ import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import axios from "axios";
 import addMediumService from "./services/addMediumService.js";
-import getRecsService from "./services/getRecsService.js";
+import getRecsService, { getRecsByGenreService } from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
 import Profile from "./components/Profile";
 const auth = new AuthService();
@@ -165,18 +166,19 @@ export default {
       addMediumService(movie, localStorage.id_token);
     },
     getRecs: async function(movie) {
-      console.log("movie IS THIS SO I CAN TELL WHAT TYPE IS:", movie);
       let response = await getRecsService(movie);
       const data = response.data;
-      console.log("HERE IS THE TV OR MOVIE DATA", data);
       this.recommendations.push(...data);
-      console.log("this.recommendations", this.recommendations);
       this.$forceUpdate();
     },
     toggleProfile: function () {
       console.log('HEY MAN I AM TOGGLING THE PROFILE',this.profile)
       this.homeOrRecs = !this.homeOrRecs
       this.profile = !this.profile;
+    },
+    getGenreRecs: async function(medium) {
+      let response = await getRecsByGenreService(medium);
+      this.recommendations.push(...response);
     },
     login,
     logout
