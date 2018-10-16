@@ -80,7 +80,7 @@
     
     <template v-if="localStorage.moviesSaved > 2">
       <RateRecs
-        v-bind:movies="recommendations"
+        v-bind:movies="filteredRecs"
         v-bind:getRecs="getRecs"
         v-bind:getGenreRecs="getGenreRecs"
       />
@@ -175,6 +175,16 @@ export default {
       let response = await getRecsByGenreService(medium);
       this.recommendations.push(...response);
     },
+    // filter: function(rec) {
+    //   const cache = {};
+    //   console.log('cache in computed property', cache);
+    //   return rec.filter(item => {
+    //     if(!cache[item]) {
+    //       cache[item] = true;
+    //       return item;
+    //     }
+    //   })
+    // },
     login,
     logout
   },
@@ -191,9 +201,21 @@ export default {
           body.push(obj);
         })
       });
+      
       this.recommendations = body;
     }
-    
+  },
+  computed: {
+    filteredRecs: function() {
+      const cache = {};
+
+      const unique = this.recommendations.filter(rec => {
+        // console.log('this recommendations', rec);
+        return cache[rec.title] ? false : (cache[rec.title] = true)
+      })
+      console.log('unique', unique);
+      return unique;
+    }
   }
 };
 </script>
