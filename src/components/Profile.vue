@@ -61,7 +61,7 @@ export default {
     getPersonality: async function() {
       // this is the function that will get the information about this user.
       //the information: synopsis of mediums that they like.
-      let userInfo = await getUserInfo()
+      // let userInfo = await getUserInfo()
 
       console.log("getting personality");
       let watsonResponse = await getWatsonService(this.userInfo);
