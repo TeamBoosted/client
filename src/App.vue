@@ -122,7 +122,9 @@ import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import axios from "axios";
 import addMediumService from "./services/addMediumService.js";
-import getRecsService, { getRecsByGenreService } from "./services/getRecsService.js";
+import getRecsService, {
+  getRecsByGenreService
+} from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
 import Profile from "./components/Profile";
 const auth = new AuthService();
@@ -209,7 +211,6 @@ export default {
       const unique = this.recommendations.filter(rec => {
         return cache[rec.title] ? false : (cache[rec.title] = true)
       })
-      console.log('unique', unique);
       return unique;
     }
   }
