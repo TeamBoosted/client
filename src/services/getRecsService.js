@@ -8,6 +8,7 @@ const getRecsService = async (medium) => {
     } else {
       response = await axios.get(`http://localhost:80/api/rec/tv/${medium.moviedb_id}`)
     }
+    console.log('Here is the recc:',response)
     return response;
   } catch (err) {
     console.log(err);
