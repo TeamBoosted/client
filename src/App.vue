@@ -126,7 +126,7 @@ import getRecsService, {
   getRecsByGenreService
 } from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
-import Profile from "./components/Profile";
+import Profile from "./components/UserProfile/Profile.vue";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 
@@ -146,7 +146,7 @@ export default {
       recommendations: [],
       index: 0,
       profile: false,
-      homeOrRecs:true
+      homeOrRecs: true
     };
   },
   components: {
@@ -173,9 +173,9 @@ export default {
       this.recommendations.push(...data);
       this.$forceUpdate();
     },
-    toggleProfile: function () {
-      console.log('HEY MAN I AM TOGGLING THE PROFILE',this.profile)
-      this.homeOrRecs = !this.homeOrRecs
+    toggleProfile: function() {
+      console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
+      this.homeOrRecs = !this.homeOrRecs;
       this.profile = !this.profile;
     },
     getGenreRecs: async function(medium) {

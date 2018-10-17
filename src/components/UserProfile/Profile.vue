@@ -4,6 +4,7 @@
       <p>Welcome to your tailored profile! </p>
       <p>Here you can find your favorite works of art, as well as those you found interestings</p>
       <p>We also offer a personality analysis based off of your favorite works of art!</p>
+    <UserFavorites />
     </template>
 
     <a 
@@ -21,15 +22,14 @@
           :options="{responsive: true, maintainAspectRatio: false,}"
           :width="800"
           :height="800"
-          
           />
         </template>
-      </div>
-      
-      
+      </div> 
     </div>
+
+
     <div v-if="this.showChart">
-      <a @click="getUserBreakdown" >Get Analysis!</a>
+      
     </div>
 
     
@@ -38,14 +38,16 @@
 </template>
 
 <script>
-import getWatsonService from "../services/getWatsonService.js";
-import PersonalityChart from "./PersonalityChart.vue";
-import getAllMedia from "../services/getAllMedia.js";
+import getWatsonService from "/Users/hunterleeves/Documents/teamBoosted/client/src/services/getWatsonService.js";
+import PersonalityChart from "./PersonalityChart";
+import getAllMedia from "/Users/hunterleeves/Documents/teamBoosted/client/src/services/getAllMedia.js";
+import UserFavorites from "./UserFavorites";
 
 export default {
   name: "Profile",
   components: {
-    PersonalityChart
+    PersonalityChart,
+    UserFavorites
   },
   data() {
     return {
