@@ -5,7 +5,6 @@ const getLastThreeService = async (id_token) => {
     let response = await axios.post("http://localhost:80/api/db/getLastThreeMedia", {
       data: { id_token }
     });
-    console.log('This is the response from threeService', response);
     return response;
   } catch (err) {
     console.log(err);

@@ -166,12 +166,12 @@ export default {
     saveToDatabase: function(movie) {
       localStorage.moviesSaved++;
       addMediumService(movie, localStorage.id_token);
+      this.$forceUpdate();
     },
     getRecs: async function(movie) {
       let response = await getRecsService(movie);
       const data = response.data;
       this.recommendations.push(...data);
-      this.$forceUpdate();
     },
     toggleProfile: function() {
       console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
@@ -180,7 +180,9 @@ export default {
     },
     getGenreRecs: async function(medium) {
       let response = await getRecsByGenreService(medium);
-      this.recommendations.push(...response);
+      if(response.length > 0) {
+        this.recommendations.push(...response);
+      }
     },
     login,
     logout
@@ -193,7 +195,9 @@ export default {
     ) {
       try {
         let response = await getLastThreeService(localStorage.id_token);
-        this.recommendations = response.data;
+        response.data.forEach(rec => {
+          this.recommendations.push(...rec);
+        })
       } catch (err) {
         console.log(err);
       }
@@ -205,8 +209,10 @@ export default {
       const cache = {};
 
       const unique = this.recommendations.filter(rec => {
-        return cache[rec.title] ? false : (cache[rec.title] = true)
-      })
+        if (rec) {
+          return cache[rec.title] ? false : (cache[rec.title] = true)
+        }
+      });
       return unique;
     }
   }
