@@ -78,7 +78,6 @@ export default {
         "i am in the watson response in client, here is watsonResponse",
         watsonResponse
       );
-
       let personalityNameArray = [];
       let personalityDataArray = [];
       let personalityInfo = {};

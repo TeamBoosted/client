@@ -24,7 +24,7 @@ export const getRecsByGenreService = async (medium) => {
     book = await axios.get(`http://localhost:80/api/db/getBookRecsByGenre/${genre_id[0]}`)
     return [...movie.data, ...tv.data, ...book.data];
   } catch (err) {
-    throw(err);
+    throw (err);
   }
 }
 
