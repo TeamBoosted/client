@@ -16,7 +16,7 @@
 
 <script>
 import FavoritesList from "./FavoritesList.vue";
-import getAllMedia from "/Users/hunterleeves/Documents/teamBoosted/client/src/services/getAllMedia.js";
+import getAllMedia from "../../services/getAllMedia.js";
 
 export default {
   name: "UserFavorites",

@@ -38,9 +38,9 @@
 </template>
 
 <script>
-import getWatsonService from "/Users/hunterleeves/Documents/teamBoosted/client/src/services/getWatsonService.js";
+import getWatsonService from "../../services/getWatsonService.js";
 import PersonalityChart from "./PersonalityChart";
-import getAllMedia from "/Users/hunterleeves/Documents/teamBoosted/client/src/services/getAllMedia.js";
+import getAllMedia from "../../services/getAllMedia.js";
 import UserFavorites from "./UserFavorites";
 
 export default {
