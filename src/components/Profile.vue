@@ -40,6 +40,7 @@
 <script>
 import getWatsonService from "../services/getWatsonService.js";
 import PersonalityChart from "./PersonalityChart.vue";
+import getAllMedia from "../services/getAllMedia.js";
 
 export default {
   name: "Profile",
@@ -61,14 +62,23 @@ export default {
     getPersonality: async function() {
       // this is the function that will get the information about this user.
       //the information: synopsis of mediums that they like.
-      // let userInfo = await getUserInfo()
+      let userInfo = await getAllMedia(localStorage.id_token);
+      console.log("userInfo object is:", userInfo);
+      console.log("the state of userInfo:", this.userInfo);
 
-      console.log("getting personality");
+      let synopsisString = "";
+      userInfo.data.forEach(medium => {
+        synopsisString += medium.synopsis;
+      });
+
+      this.userInfo.userInfo = synopsisString;
+
       let watsonResponse = await getWatsonService(this.userInfo);
       console.log(
         "i am in the watson response in client, here is watsonResponse",
         watsonResponse
       );
+
       let personalityNameArray = [];
       let personalityDataArray = [];
       let personalityInfo = {};
