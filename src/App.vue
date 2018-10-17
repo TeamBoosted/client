@@ -126,7 +126,7 @@ import getRecsService, {
   getRecsByGenreService
 } from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
-import Profile from "./components/Profile";
+import Profile from "./components/UserProfile/Profile.vue";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 
@@ -166,12 +166,12 @@ export default {
     saveToDatabase: function(movie) {
       localStorage.moviesSaved++;
       addMediumService(movie, localStorage.id_token);
+      this.$forceUpdate();
     },
     getRecs: async function(movie) {
       let response = await getRecsService(movie);
       const data = response.data;
       this.recommendations.push(...data);
-      this.$forceUpdate();
     },
     toggleProfile: function() {
       console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
@@ -180,7 +180,9 @@ export default {
     },
     getGenreRecs: async function(medium) {
       let response = await getRecsByGenreService(medium);
-      this.recommendations.push(...response);
+      if (response.length > 0) {
+        this.recommendations.push(...response);
+      }
     },
     login,
     logout
@@ -188,18 +190,17 @@ export default {
   updated: async function() {
     if (
       localStorage.moviesSaved >= 3 &&
-      this.recommendations.length < 1 &&
+      this.recommendations.length <= 1 &&
       this.authenticated
     ) {
-      let response = await getLastThreeService(localStorage.id_token);
-      const body = [];
-      response.data.forEach(rec => {
-        rec.forEach(obj => {
-          body.push(obj);
+      try {
+        let response = await getLastThreeService(localStorage.id_token);
+        response.data.forEach(rec => {
+          this.recommendations.push(...rec);
         });
-      });
-
-      this.recommendations = body;
+      } catch (err) {
+        console.log(err);
+      }
       //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
   },
@@ -208,10 +209,10 @@ export default {
       const cache = {};
 
       const unique = this.recommendations.filter(rec => {
-        // console.log('this recommendations', rec);
-        return cache[rec.title] ? false : (cache[rec.title] = true);
+        if (rec) {
+          return cache[rec.title] ? false : (cache[rec.title] = true);
+        }
       });
-      console.log("unique", unique);
       return unique;
     }
   }

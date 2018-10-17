@@ -1,5 +1,6 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'EventEmitter';
+const redirectUri = process.env.REDIRECT_URI || 'http://localhost:8080/';
 
 export default class AuthService {
 
@@ -16,7 +17,7 @@ export default class AuthService {
   auth0 = new auth0.WebAuth({
     domain: 'boostedsearch.auth0.com',
     clientID: 'Q7hNTc_gnIGYk3cVe8ewkTnUvd_5PEYA',
-    redirectUri: 'http://localhost:8080/',
+    redirectUri: redirectUri,
     responseType: 'token id_token',
     scope: 'openid'
   });
