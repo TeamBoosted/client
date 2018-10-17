@@ -186,18 +186,19 @@ export default {
   updated: async function() {
     if (
       localStorage.moviesSaved >= 3 &&
-      this.recommendations.length < 1 &&
+      this.recommendations.length <= 1 &&
       this.authenticated
     ) {
-      let response = await getLastThreeService(localStorage.id_token);
       const body = [];
-      response.data.forEach(rec => {
-        rec.forEach(obj => {
-          body.push(obj);
+      try {
+        let response = await getLastThreeService(localStorage.id_token);
+        response.data.forEach(rec => {
+          body.push(...rec);
         })
-      });
-      
-      this.recommendations = body;
+        this.recommendations = body;
+      } catch (err) {
+        console.log(err);
+      }
       //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
   },
@@ -206,7 +207,6 @@ export default {
       const cache = {};
 
       const unique = this.recommendations.filter(rec => {
-        // console.log('this recommendations', rec);
         return cache[rec.title] ? false : (cache[rec.title] = true)
       })
       console.log('unique', unique);
