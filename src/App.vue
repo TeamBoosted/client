@@ -126,7 +126,7 @@ import getRecsService, {
   getRecsByGenreService
 } from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
-import Profile from "./components/Profile";
+import Profile from "./components/UserProfile/Profile.vue";
 const auth = new AuthService();
 const { login, logout, authenticated, authNotifier } = auth;
 
