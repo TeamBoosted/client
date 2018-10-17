@@ -146,7 +146,7 @@ export default {
       recommendations: [],
       index: 0,
       profile: false,
-      homeOrRecs: true
+      homeOrRecs:true
     };
   },
   components: {
@@ -173,9 +173,9 @@ export default {
       this.recommendations.push(...data);
       this.$forceUpdate();
     },
-    toggleProfile: function() {
-      console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
-      this.homeOrRecs = !this.homeOrRecs;
+    toggleProfile: function () {
+      console.log('HEY MAN I AM TOGGLING THE PROFILE',this.profile)
+      this.homeOrRecs = !this.homeOrRecs
       this.profile = !this.profile;
     },
     getGenreRecs: async function(medium) {
