@@ -4,7 +4,7 @@ const getWatsonService = async userInfo => {
   try {
     let response = await axios({
       method: "post",
-      url: "http://localhost:80/api/watson/getPersonality",
+      url: "/api/watson/getPersonality",
       data: userInfo
     });
     return response;

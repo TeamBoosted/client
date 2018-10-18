@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getLastThreeService = async (id_token) => {
   try {
-    let response = await axios.post("http://localhost:80/api/db/getLastThreeMedia", {
+    let response = await axios.post("/api/db/getLastThreeMedia", {
       data: { id_token }
     });
     return response;
