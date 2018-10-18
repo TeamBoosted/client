@@ -1,6 +1,7 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'EventEmitter';
-const redirectUri = process.env.REDIRECT_URI || 'ec2-18-211-50-102.compute-1.amazonaws.com';
+import { REDIRECT_URI } from '../../config.js';
+const redirectUri = REDIRECT_URI || 'http://localhost:80';
 
 export default class AuthService {
 
