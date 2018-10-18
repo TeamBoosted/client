@@ -15,13 +15,19 @@
     </template>
     <li class="title">{{currentMovie.title}}</li>
       <ul>
-        <div class="block">
-          <i class="material-icons" @click="thumbsUp(currentMovie); getGenreRecs(currentMovie); increment();">thumb_up</i>
+        <div class="flex-container">
+          <div class="box">
+            <i class="material-icons" id="thumbs-up" @click="thumbsUp(currentMovie); getGenreRecs(currentMovie); increment();">thumb_up</i>
+          </div>
+          <div class="poster">
+            <img :src="currentMovie.image" class="poster">
           </div>  
-        <img :src="currentMovie.image" class='poster'>
-        <br>
-        <br>
-        <i class="material-icons" @click="thumbsDown(); increment();">thumb_down</i>
+          <br>
+          <br>
+          <div class="box">
+            <i class="material-icons" name="thumbs-down" @click="thumbsDown(); increment();">thumb_down</i>
+          </div>
+        </div>
         <li>{{currentMovie.synopsis}}</li>
 
       </ul>
@@ -62,22 +68,25 @@ export default {
 
 <style scoped>
 .poster {
-  width: 20%;
-  height: 20%;
+  width: 45%;
+  height: 45%;
+  margin-left: -9%;
+  margin-right: -9%;
 }
 
 .material-icons {
   font-family: "Material Icons";
   font-weight: normal;
   font-style: normal;
-  font-size: 24px; /* Preferred icon size */
-  display: inline-block;
+  font-size: 30px; /* Preferred icon size */
+  display: block;
   line-height: 1;
   text-transform: none;
   letter-spacing: normal;
   word-wrap: normal;
   white-space: nowrap;
   direction: ltr;
+  position: relative;
 
   /* Support for all WebKit browsers. */
   -webkit-font-smoothing: antialiased;
@@ -105,5 +114,16 @@ export default {
   min-height: 50%;
   max-width: 25%;
   max-height: 25%;
+.box {
+  width: 45px;
+  height: 45px;
+  padding: 7px;
+  align-self: center;
+}
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  /* position: relative; */
+  justify-content: center;
 }
 </style>

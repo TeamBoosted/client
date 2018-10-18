@@ -180,7 +180,7 @@ export default {
     },
     getGenreRecs: async function(medium) {
       let response = await getRecsByGenreService(medium);
-      if(response.length > 0) {
+      if (response.length > 0) {
         this.recommendations.push(...response);
       }
     },
@@ -197,7 +197,7 @@ export default {
         let response = await getLastThreeService(localStorage.id_token);
         response.data.forEach(rec => {
           this.recommendations.push(...rec);
-        })
+        });
       } catch (err) {
         console.log(err);
       }
@@ -210,7 +210,7 @@ export default {
 
       const unique = this.recommendations.filter(rec => {
         if (rec) {
-          return cache[rec.title] ? false : (cache[rec.title] = true)
+          return cache[rec.title] ? false : (cache[rec.title] = true);
         }
       });
       return unique;
