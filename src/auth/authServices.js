@@ -1,6 +1,6 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'EventEmitter';
-const redirectUri = process.env.REDIRECT_URI || 'http://localhost:8080/';
+const redirectUri = process.env.REDIRECT_URI || 'http://localhost:80/';
 
 export default class AuthService {
 
