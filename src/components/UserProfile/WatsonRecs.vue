@@ -7,7 +7,9 @@
     <div class="columns" id="books">
       <!-- BOOOOOOOKS -->
       <div class="column is-one-fifth">
-        <img class="icons" src="https://image.flaticon.com/icons/png/128/182/182321.png" >
+        <div>
+          <img class="icons" src="https://image.flaticon.com/icons/png/128/182/182321.png" >
+        </div>
       </div>
         <div class="column is-one-quarter">
           <h1>{{bookRecs[0].title}}</h1>
@@ -30,7 +32,7 @@
 
     <div class="columns" id="tv">
       <!-- TV TV TV TV TV TV-->
-      <div class="column is-one-fifth">TV
+      <div class="column is-one-fifth">
         <img class="icons" src="https://ubisafe.org/images/transparent-tv-black-and-white-1.png" >
       </div>
         <div class="column is-one-quarter">
@@ -100,6 +102,7 @@ export default {
   },
   methods: {
     getRecsByPersonality: async function() {
+      //add more genres and a default one if nothing is too extreme
       let type, genre_id;
       let bookRecs = [];
       let tvRecs = [];
@@ -108,7 +111,7 @@ export default {
       if (this.personalityInfo.Extraversion > 80) {
         console.log("I AM IN HERE, IN THE EXTRAVERT ZONE");
       }
-      genre_id = 28;
+      genre_id = 35;
 
       // if (this.personalityInfo.)
 
@@ -178,5 +181,10 @@ export default {
   max-height: 85%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.icons {
+  margin-top: 50%;
+  margin-bottom: 50%;
 }
 </style>
