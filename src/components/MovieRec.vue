@@ -114,6 +114,7 @@ export default {
   min-height: 50%;
   max-width: 25%;
   max-height: 25%;
+}
 .box {
   width: 45px;
   height: 45px;

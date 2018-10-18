@@ -119,7 +119,6 @@ export default {
       //   "========> I am in getRecysByPersonality",
       //   this.personalityInfo.extraversion
       // );
-
       // if (this.personalityInfo.extraversion > 70) {
       //   console.log("EXTRAVERSION IS ABOVE 70");
       // }
