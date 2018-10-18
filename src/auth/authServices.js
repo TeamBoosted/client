@@ -1,6 +1,6 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'EventEmitter';
-const redirectUri = process.env.REDIRECT_URI || 'http://localhost:80/';
+const redirectUri = process.env.REDIRECT_URI || 'mymedia.fun';
 
 export default class AuthService {
 
