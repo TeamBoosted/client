@@ -36,7 +36,18 @@ export default {
       return this.movies[this.index];
     }
   },
+  computed: {
+    currentMovie: function() {
+      return this.movies[this.index];
+      //getting rid of duplicate log can go here
+    }
+  },
   methods: {
+    increment: function() {
+      if (this.index < this.movies.length - 1) {
+        this.index = this.index + 1;
+      }
+    },
     thumbsUp: function(movie) {
       addMediumService(movie, localStorage.id_token);
     },
