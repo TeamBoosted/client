@@ -1,6 +1,18 @@
 
 <template>
   <ul>
+    <template>
+      <div v-if="currentMovie.type === 'tv'">
+        <img src="https://ubisafe.org/images/transparent-tv-black-and-white-1.png" alt="" class ='icons'>
+      </div>
+      <div v-else-if="currentMovie.type === 'movie'" >
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKbC76g1RLAzc65FRd5NwsXqSVlCYmsCrr7Sf4f1qyYZO36CFZxg" alt="" class ='icons'>
+      </div>
+      <div v-else-if="currentMovie.type === 'book'" id="book">
+        <img src="https://image.flaticon.com/icons/png/128/182/182321.png" alt="" class ='icons'>
+      </div>
+
+    </template>
     <li class="title">{{currentMovie.title}}</li>
       <ul>
         <div class="flex-container">
@@ -24,7 +36,6 @@
 
 <script>
 import addMediumService from "../services/addMediumService.js";
-
 export default {
   name: "MovieRec",
   props: ["movies", "getRecs", "getGenreRecs"],
@@ -49,7 +60,7 @@ export default {
       addMediumService(movie, localStorage.id_token);
     },
     thumbsDown: function() {
-      console.log("Thumbs Down, booo");
+      console.log("Thumbs Down, booo", this.movies);
     }
   }
 };
@@ -87,6 +98,22 @@ export default {
 
   /* Support for IE. */
   font-feature-settings: "liga";
+}
+
+.icons {
+  min-width: 8%;
+  min-height: 8%;
+  max-width: 10%;
+  max-height: 10%;
+}
+
+#book {
+  margin-left: 25%;
+  margin-right: 25%;
+  min-width: 50%;
+  min-height: 50%;
+  max-width: 25%;
+  max-height: 25%;
 }
 .box {
   width: 45px;

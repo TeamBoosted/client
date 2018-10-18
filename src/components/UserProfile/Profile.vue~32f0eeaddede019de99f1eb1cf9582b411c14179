@@ -4,6 +4,7 @@
       <p>Welcome to your tailored profile! </p>
       <p>Here you can find your favorite works of art, as well as those you found interestings</p>
       <p>We also offer a personality analysis based off of your favorite works of art!</p>
+    <UserFavorites />
     </template>
 
     <a 
@@ -21,15 +22,14 @@
           :options="{responsive: true, maintainAspectRatio: false,}"
           :width="800"
           :height="800"
-          
           />
         </template>
-      </div>
-      
-      
+      </div> 
     </div>
+
+
     <div v-if="this.showChart">
-      <a @click="getUserBreakdown" >Get Analysis!</a>
+      
     </div>
 
     
@@ -38,13 +38,16 @@
 </template>
 
 <script>
-import getWatsonService from "../services/getWatsonService.js";
-import PersonalityChart from "./PersonalityChart.vue";
+import getWatsonService from "../../services/getWatsonService.js";
+import PersonalityChart from "./PersonalityChart";
+import getAllMedia from "../../services/getAllMedia.js";
+import UserFavorites from "./UserFavorites";
 
 export default {
   name: "Profile",
   components: {
-    PersonalityChart
+    PersonalityChart,
+    UserFavorites
   },
   data() {
     return {
@@ -61,9 +64,17 @@ export default {
     getPersonality: async function() {
       // this is the function that will get the information about this user.
       //the information: synopsis of mediums that they like.
-      // let userInfo = await getUserInfo()
+      let userInfo = await getAllMedia(localStorage.id_token);
+      console.log("userInfo object is:", userInfo);
+      console.log("the state of userInfo:", this.userInfo);
 
-      console.log("getting personality");
+      let synopsisString = "";
+      userInfo.data.forEach(medium => {
+        synopsisString += medium.synopsis;
+      });
+
+      this.userInfo.userInfo = synopsisString;
+
       let watsonResponse = await getWatsonService(this.userInfo);
       console.log(
         "i am in the watson response in client, here is watsonResponse",
