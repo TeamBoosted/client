@@ -43,11 +43,6 @@ export default {
     }
   },
   methods: {
-    increment: function() {
-      if (this.index < this.movies.length - 1) {
-        this.index = this.index + 1;
-      }
-    },
     thumbsUp: function(movie) {
       addMediumService(movie, localStorage.id_token);
     },
