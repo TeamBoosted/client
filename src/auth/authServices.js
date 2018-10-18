@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'EventEmitter';
-// import { REDIRECT_URI } from '../../config.js';
-const redirectUri = 'http://mymedia.fun';
+import { REDIRECT_URI } from '../../config.js';
+const redirectUri = REDIRECT_URI;
 
 export default class AuthService {
 
