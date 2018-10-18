@@ -2,7 +2,7 @@ import axios from "axios";
 
 const addMediumService = async (movie, user) => {
   try {
-    let res = await axios.post(`http://localhost:80/api/db/addMedium`, {
+    let res = await axios.post(`/api/db/addMedium`, {
       data: { movie, user }
     });
     return res;
