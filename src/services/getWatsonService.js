@@ -1,10 +1,11 @@
 import axios from "axios";
+import { API_SERVER } from '../../config.js';
 
 const getWatsonService = async userInfo => {
   try {
     let response = await axios({
       method: "post",
-      url: "http://localhost:80/api/watson/getPersonality",
+      url: `${API_SERVER}/api/watson/getPersonality`,
       data: userInfo
     });
     return response;
