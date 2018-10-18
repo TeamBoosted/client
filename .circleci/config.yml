@@ -32,6 +32,14 @@ jobs:
       # run tests!
       #- run: npm test
 
+      - run:
+          name: Make config file
+          command: |
+            cat <<EOF > config.js
+            export const REDIRECT_URI = 'http://mymedia.fun';
+            export const API_SERVER = 'http://mymedia.fun';
+            EOF
+
       - setup_remote_docker
       - run:
           name: login-docker
