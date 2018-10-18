@@ -1,12 +1,13 @@
 import axios from "axios";
+import { API_SERVER } from '../../config.js';
 
 const getRecsService = async (medium) => {
   try {
     let response;
     if (medium.type === "movie") {
-      response = await axios.get(`/api/rec/movies/${medium.moviedb_id}`);
+      response = await axios.get(`${API_SERVER}/api/rec/movies/${medium.moviedb_id}`);
     } else {
-      response = await axios.get(`/api/rec/tv/${medium.moviedb_id}`)
+      response = await axios.get(`${API_SERVER}/api/rec/tv/${medium.moviedb_id}`)
     }
     return response;
   } catch (err) {
@@ -19,22 +20,22 @@ export const getRecsByGenreService = async (medium) => {
   const genre_id = medium.type === 'book' ? medium.book_genre.genreId : medium.genre_id[0];
   try {
     let movie, tv, book;
-    movie = await axios.get(`/api/rec/movies/genre/${genre_id}`);
-    tv = await axios.get(`/api/rec/tv/genre/${genre_id}`);
-    book = await axios.get(`/api/db/getBookRecsByGenre/${genre_id}`);
+    movie = await axios.get(`${API_SERVER}/api/rec/movies/genre/${genre_id}`);
+    tv = await axios.get(`${API_SERVER}/api/rec/tv/genre/${genre_id}`);
+    book = await axios.get(`${API_SERVER}/api/db/getBookRecsByGenre/${genre_id}`);
     let arr = [...movie.data, ...tv.data];
     const data = {
       movie: medium,
       user: localStorage.id_token
     }
-    axios.post('/api/db/addMedium', { data });
+    axios.post(`${API_SERVER}/api/db/addMedium`, { data });
     book.data.forEach(rec => {
       if (rec) {
         arr.push(rec);
       }
     })
 
-    axios.post('/api/redis/caching', { key, value: arr });
+    axios.post(`${API_SERVER}/api/redis/caching`, { key, value: arr });
     return arr;
   } catch (err) {
     console.log(err);
