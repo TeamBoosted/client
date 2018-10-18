@@ -38,11 +38,14 @@
 import addMediumService from "../services/addMediumService.js";
 export default {
   name: "MovieRec",
-  props: ["movies", "getRecs", "getGenreRecs"],
+  props: ["movies", "getRecs", "getGenreRecs", "increment", "index"],
   data() {
-    return {
-      index: 0
-    };
+    return {};
+  },
+  computed: {
+    currentMovie: function() {
+      return this.movies[this.index];
+    }
   },
   computed: {
     currentMovie: function() {
@@ -51,11 +54,6 @@ export default {
     }
   },
   methods: {
-    increment: function() {
-      if (this.index < this.movies.length - 1) {
-        this.index = this.index + 1;
-      }
-    },
     thumbsUp: function(movie) {
       addMediumService(movie, localStorage.id_token);
     },

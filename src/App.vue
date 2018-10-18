@@ -90,6 +90,8 @@
         v-bind:movies="filteredRecs"
         v-bind:getRecs="getRecs"
         v-bind:getGenreRecs="getGenreRecs"
+        v-bind:increment="increment"
+        v-bind:index="index"
       />
       
       
@@ -120,7 +122,6 @@ import AuthService from "./auth/authServices.js";
 import Header from "./components/Header";
 import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
-import axios from "axios";
 import addMediumService from "./services/addMediumService.js";
 import getRecsService, {
   getRecsByGenreService
@@ -184,6 +185,11 @@ export default {
         this.recommendations.push(...response);
       }
     },
+    increment: function() {
+      if (this.index < this.filteredRecs.length - 1) {
+        this.index = this.index + 1;
+      }
+    },
     login,
     logout
   },
@@ -198,6 +204,7 @@ export default {
         response.data.forEach(rec => {
           this.recommendations.push(...rec);
         });
+        this.$forceUpdate();
       } catch (err) {
         console.log(err);
       }
