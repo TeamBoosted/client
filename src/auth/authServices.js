@@ -1,7 +1,7 @@
 import auth0 from 'auth0-js'
 import EventEmitter from 'EventEmitter';
 // import { REDIRECT_URI } from '../../config.js';
-const redirectUri = 'http://localhost:80';
+const redirectUri = 'http://mymedia.fun';
 
 export default class AuthService {
 
@@ -16,8 +16,8 @@ export default class AuthService {
   }
 
   auth0 = new auth0.WebAuth({
-    domain: 'boostedsearch.auth0.com',
-    clientID: 'Q7hNTc_gnIGYk3cVe8ewkTnUvd_5PEYA',
+    domain: 'mymedia.auth0.com',
+    clientID: '8XXPR6cpy4F89nvV4EWDxBYCsSlNSypK',
     redirectUri: redirectUri,
     responseType: 'token id_token',
     scope: 'openid'
