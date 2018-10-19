@@ -11,10 +11,9 @@
 <script>
 export default {
   name: "DropdownList",
-  props: ["movie", "saveToDatabase", "getRecs","mediumType"],
+  props: ["movie", "saveToDatabase", "getRecs", "mediumType"],
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     toggleSearchResults: function() {
@@ -26,7 +25,8 @@ export default {
 
 <style scoped>
 .poster {
-  width: 20%;
-  height: 20%;
+  width: 50%;
+  height: 50%;
 }
+
 </style>
