@@ -117,7 +117,7 @@ export default {
       ) {
         genre_id = 27;
       } else {
-        genre_id = 28;
+        genre_id = 18;
       }
 
       try {
