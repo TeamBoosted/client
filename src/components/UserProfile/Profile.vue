@@ -76,7 +76,6 @@ export default {
 
       this.userInfo.userInfo = synopsisString;
 
-      console.log("getting personality");
       let watsonResponse = await getWatsonService(this.userInfo);
 
       let personalityNameArray = [];
@@ -91,7 +90,6 @@ export default {
       });
 
       this.personalityInfo = personalityInfo;
-      console.log("this.personalityInfo: ", personalityInfo);
 
       this.showChart = !this.showChart;
       this.chartData = {

@@ -88,6 +88,7 @@
 
 <script>
 import axios from "axios";
+import { API_SERVER } from "../../config.js";
 
 export default {
   name: "WatsonRecs",
@@ -102,31 +103,22 @@ export default {
   },
   methods: {
     getRecsByPersonality: async function() {
-      //add more genres and a default one if nothing is too extreme
       let type, genre_id;
       let bookRecs = [];
       let tvRecs = [];
       let movieRecs = [];
-      console.log("PROPS PERSONALITY INFO:", this.personalityInfo.Extraversion);
       if (this.personalityInfo.Extraversion > 80) {
-        console.log("I AM IN HERE, IN THE EXTRAVERT ZONE");
       }
       genre_id = 35;
-
-      // if (this.personalityInfo.)
-
-      // if ()
 
       try {
         let movie, tv, book;
         movie = await axios.get(
-          `http://localhost:80/api/rec/movies/genre/${genre_id}`
+          `${API_SERVER}/api/rec/movies/genre/${genre_id}`
         );
-        tv = await axios.get(
-          `http://localhost:80/api/rec/tv/genre/${genre_id}`
-        );
+        tv = await axios.get(`${API_SERVER}/api/rec/tv/genre/${genre_id}`);
         book = await axios.get(
-          `http://localhost:80/api/db/getBookRecsByGenre/${genre_id}`
+          `${API_SERVER}/api/db/getBookRecsByGenre/${genre_id}`
         );
 
         console.log("HERE IS THE BOOKS!", book);
@@ -155,20 +147,13 @@ export default {
           }
         });
 
-        console.log("\narray of reccs:", sortedArr);
         this.bookRecs = bookRecs;
-        console.log("this.bookRecs:---> ", this.bookRecs);
         this.tvRecs = tvRecs;
-        console.log("  this.tvRecs: ", this.tvRecs);
         this.movieRecs = movieRecs;
-        console.log("this.movieRecs: ", this.movieRecs);
       } catch (err) {
         console.log(err);
       }
 
-      //     //
-      //   }
-      // }
       this.showPersonality = !this.showPersonality;
     }
   }
