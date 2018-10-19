@@ -1,7 +1,6 @@
 <template>
   <div>
-    HEY, BEEN TRYING, TO MEET YOU
-    <a @click="getRecsByPersonality" >click me to see the recs</a>
+    <a @click="getRecsByPersonality" class="button is-light"> Get Artistic Recommendations by Taste </a>
 
   <template v-if="showPersonality">
     <div class="columns" id="books">
@@ -109,13 +108,17 @@ export default {
       let movieRecs = [];
       console.log("PROPS PERSONALITY INFO:", this.personalityInfo.Extraversion);
       if (this.personalityInfo.Extraversion > 80) {
-        console.log("I AM IN HERE, IN THE EXTRAVERT ZONE");
+        genre_id = 35;
+      } else if (this.personalityInfo.Emotional_range > 70) {
+        genre_id = 12;
+      } else if (
+        this.personalityInfo.Agreableness < 15 &&
+        this.personalityInfo.Extraversion < 15
+      ) {
+        genre_id = 27;
+      } else {
+        genre_id = 28;
       }
-      genre_id = 35;
-
-      // if (this.personalityInfo.)
-
-      // if ()
 
       try {
         let movie, tv, book;

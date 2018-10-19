@@ -22,9 +22,10 @@
           <template v-if="homeOrRecs">
             Profile
           </template>
-            <template v-else>
-              Recommendations
-            </template>
+
+          <template v-else>
+            Recommendations
+          </template>
           </a>
 
           <a class="navbar-item">
@@ -35,7 +36,6 @@
             <a class="navbar-link">
               More
             </a>
-
             <div class="navbar-dropdown">
               <a class="navbar-item">
                 About
@@ -234,6 +234,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  margin-bottom: 100px;
 }
 
 #magGlass {
