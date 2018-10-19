@@ -106,7 +106,6 @@ export default {
       let bookRecs = [];
       let tvRecs = [];
       let movieRecs = [];
-      console.log("PROPS PERSONALITY INFO:", this.personalityInfo.Extraversion);
       if (this.personalityInfo.Extraversion > 80) {
         genre_id = 35;
       } else if (this.personalityInfo.Emotional_range > 70) {
@@ -132,8 +131,6 @@ export default {
           `http://localhost:80/api/db/getBookRecsByGenre/${genre_id}`
         );
 
-        console.log("HERE IS THE BOOKS!", book);
-
         let arr = [...movie.data, ...tv.data];
 
         book.data.forEach(rec => {
@@ -158,13 +155,9 @@ export default {
           }
         });
 
-        console.log("\narray of reccs:", sortedArr);
         this.bookRecs = bookRecs;
-        console.log("this.bookRecs:---> ", this.bookRecs);
         this.tvRecs = tvRecs;
-        console.log("  this.tvRecs: ", this.tvRecs);
         this.movieRecs = movieRecs;
-        console.log("this.movieRecs: ", this.movieRecs);
       } catch (err) {
         console.log(err);
       }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="userInput">
     <div class="control">
       <label class="radio is-size-5">
         <input type="radio" value="movie" v-model="mediumType">
@@ -79,9 +79,15 @@ export default {
     },
 
     toggleSearchResults: function(chosenMovie) {
-      console.log("Here is toggled movie!", chosenMovie);
       this.showSearchResults = !this.showSearchResults;
     }
   }
 };
 </script>
+
+<style>
+#userInput {
+  max-width: 55%;
+  margin: auto;
+}
+</style>

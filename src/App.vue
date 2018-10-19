@@ -3,7 +3,6 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
           <p id='nav-icon' class="is-size-5">My Media</p>
         </a>
 
@@ -183,7 +182,6 @@ export default {
       } catch (err) {
         console.log(err);
       }
-      //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
   },
   computed: {
@@ -213,7 +211,7 @@ export default {
 }
 
 #magGlass {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 28%;
+  max-height: 28%;
 }
 </style>
