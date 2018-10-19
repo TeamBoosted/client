@@ -148,6 +148,7 @@ export default {
       let response = await getRecsService(movie);
       const data = response.data;
       this.recommendations.push(...data);
+      shuffle(this.recommendation);
     },
     toggleProfile: function() {
       this.homeOrRecs = !this.homeOrRecs;
