@@ -3,7 +3,6 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="/">
-          <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
           <p id='nav-icon' class="is-size-5">My Media</p>
         </a>
 
@@ -55,7 +54,7 @@
       <Profile />
     </template>
     <template v-else-if="!profile">
-    <template v-if="localStorage.moviesSaved < 3">
+    <template v-if="localStorage.moviesSaved < 3 || !localStorage.moviesSaved">
       <Header />
       <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
     </template>  
@@ -150,7 +149,6 @@ export default {
       this.recommendations.push(...data);
     },
     toggleProfile: function() {
-      console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
       this.homeOrRecs = !this.homeOrRecs;
       this.profile = !this.profile;
     },
@@ -183,7 +181,6 @@ export default {
       } catch (err) {
         console.log(err);
       }
-      //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
   },
   computed: {
@@ -208,7 +205,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
   margin-bottom: 100px;
 }
 

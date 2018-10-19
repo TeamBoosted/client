@@ -79,7 +79,6 @@ export default {
     },
 
     toggleSearchResults: function(chosenMovie) {
-      console.log("Here is toggled movie!", chosenMovie);
       this.showSearchResults = !this.showSearchResults;
     }
   }

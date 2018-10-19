@@ -34,7 +34,6 @@ export default class AuthService {
   }
 
   login() {
-    // console.log('Login from class being fired');
     this.auth0.authorize()
   }
 
