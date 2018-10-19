@@ -55,7 +55,7 @@
       <Profile />
     </template>
     <template v-else-if="!profile">
-    <template v-if="localStorage.moviesSaved < 3">
+    <template v-if="localStorage.moviesSaved < 3 || !localStorage.moviesSaved">
       <Header />
       <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
     </template>  
@@ -208,7 +208,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
   margin-bottom: 100px;
 }
 
