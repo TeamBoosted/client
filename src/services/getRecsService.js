@@ -1,16 +1,18 @@
 import axios from "axios";
 import { API_SERVER } from '../../config.js';
 export const shuffle = (arr) => {
-  let curIdx = arr.length;
-  let randomIdx, temp;
-  while (curIdx !== 0) {
-    randomIdx = Math.floor(Math.random() * curIdx);
-    curIdx -= 1;
-    temp = arr[curIdx];
-    arr[curIdx] = arr[randomIdx];
-    arr[randomIdx] = temp;
+  if(arr.length) {
+    let curIdx = arr.length;
+    let randomIdx, temp;
+    while (curIdx !== 0) {
+      randomIdx = Math.floor(Math.random() * curIdx);
+      curIdx -= 1;
+      temp = arr[curIdx];
+      arr[curIdx] = arr[randomIdx];
+      arr[randomIdx] = temp;
+    }
+    return arr;
   }
-  return arr;
 }
 const limit = (arr, n) => {
   const limitted = [];
