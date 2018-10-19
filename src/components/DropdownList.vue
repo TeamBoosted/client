@@ -11,10 +11,9 @@
 <script>
 export default {
   name: "DropdownList",
-  props: ["movie", "saveToDatabase", "getRecs","mediumType"],
+  props: ["movie", "saveToDatabase", "getRecs", "mediumType"],
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
     toggleSearchResults: function() {
@@ -29,4 +28,5 @@ export default {
   width: 20%;
   height: 20%;
 }
+
 </style>
