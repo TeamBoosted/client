@@ -37,7 +37,7 @@ const getRecsService = async (medium) => {
   }
 };
 
-export const getRecsByGenreService = async (medium, watson = false) => {
+export const getRecsByGenreService = async (medium) => {
   const key = medium.moviedb_id || medium.goodReads_id;
   const genre_id = medium.type === 'book' ? medium.book_genre.genreId : medium.genre_id[0];
   let movie, tv, book;
