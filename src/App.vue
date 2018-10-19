@@ -2,9 +2,9 @@
   <div id="app" class="container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
+        <a class="navbar-item" href="/">
           <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
-          <p id='nav-icon'>Boosted</p>
+          <p id='nav-icon' class="is-size-5">My Media</p>
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -20,51 +20,26 @@
             @click="toggleProfile"  
           >
           <template v-if="homeOrRecs">
-            Profile
+            <p class="is-size-5">Profile</p>
           </template>
             <template v-else>
-              Recommendations
+              <p class="is-size-5">Recommendations</p>
             </template>
           </a>
 
-          <a class="navbar-item">
-            Documentation
-          </a>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              More
-            </a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                About
-              </a>
-              <a class="navbar-item">
-                Jobs
-              </a>
-              <a class="navbar-item">
-                Contact
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item">
-                Report an issue
-              </a>
-            </div>
-          </div>
         </div>
 
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
               <a
-                class="button is-primary"
+                class="button is-primary is-size-5"
                 v-if="!authenticated" 
                 @click="login()">
                 Log-in
               </a>  
               <a
-                class="button is-light"
+                class="button is-light is-size-5"
                 v-if="authenticated"
                 @click="logout()">
                 Log Out
@@ -181,7 +156,7 @@ export default {
     },
     getGenreRecs: async function(medium) {
       let response = await getRecsByGenreService(medium);
-      if (response.length > 0) {
+      if (response && response.length > 0) {
         this.recommendations.push(...response);
       }
     },
@@ -237,7 +212,7 @@ export default {
 }
 
 #magGlass {
-  max-width: 75%;
-  max-height: 75%;
+  max-width: 50%;
+  max-height: 50%;
 }
 </style>
