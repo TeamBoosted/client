@@ -1,8 +1,8 @@
 <template>
   <div>
-    HEY, BEEN TRYING, TO MEET YOU
-    <a @click="getRecsByPersonality" >click me to see the recs</a>
-
+    <template v-if="showPersonality === false">
+      <a @click="getRecsByPersonality" class="button is-light"> Get Artistic Recommendations by Taste </a>
+    </template>
   <template v-if="showPersonality">
     <div class="columns" id="books">
       <!-- BOOOOOOOKS -->
@@ -12,19 +12,19 @@
         </div>
       </div>
         <div class="column is-one-quarter">
-          <h1>{{bookRecs[0].title}}</h1>
+          <h1 class="is-size-4">{{bookRecs[0].title}}</h1>
           <img class="poster" :src="bookRecs[0].image" >
           <p>{{bookRecs[0].synopsis}}</p>
         </div>
 
         <div class="column is-one-quarter">
-          <h1>{{bookRecs[1].title}}</h1>
+          <h1 class="is-size-4">{{bookRecs[1].title}}</h1>
           <img class="poster" :src="bookRecs[1].image" >
           <p>{{bookRecs[1].synopsis}}</p>
         </div>
 
         <div class="column is-one-quarter">
-          <h1>{{bookRecs[2].title}}</h1>
+          <h1 class="is-size-4">{{bookRecs[2].title}}</h1>
           <img class="poster" :src="bookRecs[2].image" >
           <p>{{bookRecs[2].synopsis}}</p>
         </div>
@@ -36,19 +36,19 @@
         <img class="icons" src="https://ubisafe.org/images/transparent-tv-black-and-white-1.png" >
       </div>
         <div class="column is-one-quarter">
-          <h1>{{tvRecs[0].title}}</h1>
+          <h1 class="is-size-4">{{tvRecs[0].title}}</h1>
           <img class="poster" :src="tvRecs[0].image" >
           <p>{{tvRecs[0].synopsis}}</p>
         </div>
 
         <div class="column is-one-quarter">
-          <h1>{{tvRecs[1].title}}</h1>
+          <h1 class="is-size-4">{{tvRecs[1].title}}</h1>
           <img class="poster" :src="tvRecs[1].image" >
           <p>{{tvRecs[1].synopsis}}</p>
         </div>
 
         <div class="column is-one-quarter">
-          <h1>{{tvRecs[2].title}}</h1>
+          <h1 class="is-size-4">{{tvRecs[2].title}}</h1>
           <img class="poster" :src="tvRecs[2].image" >
           <p>{{tvRecs[2].synopsis}}</p>
         </div>
@@ -61,19 +61,19 @@
       </div>
       <!-- //book one -->
         <div class="column is-one-quarter">
-          <h1>{{movieRecs[0].title}}</h1>
+          <h1 class="is-size-4">{{movieRecs[0].title}}</h1>
           <img class="poster" :src="movieRecs[0].image" >
           <p>{{movieRecs[0].synopsis}}</p>
         </div>
 
         <div class="column is-one-quarter">
-          <h1>{{movieRecs[1].title}}</h1>
+          <h1 class="is-size-4">{{movieRecs[1].title}}</h1>
           <img class="poster" :src="movieRecs[1].image" >
           <p>{{movieRecs[1].synopsis}}</p>
         </div>
 
         <div class="column is-one-quarter">
-          <h1>{{movieRecs[2].title}}</h1>
+          <h1 class="is-size-4">{{movieRecs[2].title}}</h1>
           <img class="poster" :src="movieRecs[2].image" >
           <p>{{movieRecs[2].synopsis}}</p>
         </div>
@@ -108,8 +108,17 @@ export default {
       let tvRecs = [];
       let movieRecs = [];
       if (this.personalityInfo.Extraversion > 80) {
+        genre_id = 35;
+      } else if (this.personalityInfo.Emotional_range > 75) {
+        genre_id = 12;
+      } else if (
+        this.personalityInfo.Agreeableness < 15 &&
+        this.personalityInfo.Conscientiousness < 15
+      ) {
+        genre_id = 27;
+      } else {
+        genre_id = 18;
       }
-      genre_id = 35;
 
       try {
         let movie, tv, book;
@@ -120,8 +129,6 @@ export default {
         book = await axios.get(
           `${API_SERVER}/api/db/getBookRecsByGenre/${genre_id}`
         );
-
-        console.log("HERE IS THE BOOKS!", book);
 
         let arr = [...movie.data, ...tv.data];
 
@@ -142,7 +149,11 @@ export default {
             bookRecs.push(entry);
           } else if (entry.type === "tv" && entry.vote_count > 300) {
             tvRecs.push(entry);
-          } else if (entry.type === "movie" && entry.vote_count > 500) {
+          } else if (
+            entry.type === "movie" &&
+            entry.vote_count > 500 &&
+            entry.title !== "BlacKkKlansman"
+          ) {
             movieRecs.push(entry);
           }
         });
@@ -171,5 +182,12 @@ export default {
 .icons {
   margin-top: 50%;
   margin-bottom: 50%;
+}
+.is-size-4 {
+  max-width: 230px;
+  align-content: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

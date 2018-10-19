@@ -2,9 +2,8 @@
   <div id="app" class="container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-          <!-- <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"> -->
-          <p id='nav-icon'>Boosted</p>
+        <a class="navbar-item" href="/">
+          <p id='nav-icon' class="is-size-5">My Media</p>
         </a>
 
         <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -20,51 +19,26 @@
             @click="toggleProfile"  
           >
           <template v-if="homeOrRecs">
-            Profile
+            <p class="is-size-5">Profile</p>
           </template>
             <template v-else>
-              Recommendations
+              <p class="is-size-5">Recommendations</p>
             </template>
           </a>
 
-          <a class="navbar-item">
-            Documentation
-          </a>
-
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              More
-            </a>
-
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                About
-              </a>
-              <a class="navbar-item">
-                Jobs
-              </a>
-              <a class="navbar-item">
-                Contact
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item">
-                Report an issue
-              </a>
-            </div>
-          </div>
         </div>
 
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
               <a
-                class="button is-primary"
+                class="button is-primary is-size-5"
                 v-if="!authenticated" 
                 @click="login()">
                 Log-in
               </a>  
               <a
-                class="button is-light"
+                class="button is-light is-size-5"
                 v-if="authenticated"
                 @click="logout()">
                 Log Out
@@ -80,7 +54,7 @@
       <Profile />
     </template>
     <template v-else-if="!profile">
-    <template v-if="recommendations.length < 15">
+    <template v-if="localStorage.moviesSaved < 3 || !localStorage.moviesSaved">
       <Header />
       <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
     </template>  
@@ -124,7 +98,8 @@ import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import addMediumService from "./services/addMediumService.js";
 import getRecsService, {
-  getRecsByGenreService
+  getRecsByGenreService,
+  shuffle
 } from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
 import Profile from "./components/UserProfile/Profile.vue";
@@ -173,15 +148,15 @@ export default {
       let response = await getRecsService(movie);
       const data = response.data;
       this.recommendations.push(...data);
+      shuffle(this.recommendation);
     },
     toggleProfile: function() {
-      console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
       this.homeOrRecs = !this.homeOrRecs;
       this.profile = !this.profile;
     },
     getGenreRecs: async function(medium) {
       let response = await getRecsByGenreService(medium);
-      if (response.length > 0) {
+      if (response && response.length > 0) {
         this.recommendations.push(...response);
       }
     },
@@ -203,12 +178,11 @@ export default {
         let response = await getLastThreeService(localStorage.id_token);
         response.data.forEach(rec => {
           this.recommendations.push(...rec);
+          shuffle(this.recommendations);
         });
-        this.$forceUpdate();
       } catch (err) {
         console.log(err);
       }
-      //this.watsonProfile = [] <---- comb out synopsis from each recommended thing here
     }
   },
   computed: {
@@ -233,11 +207,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 30px;
+  margin-bottom: 100px;
 }
 
 #magGlass {
-  max-width: 75%;
-  max-height: 75%;
+  max-width: 28%;
+  max-height: 28%;
 }
 </style>
