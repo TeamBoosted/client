@@ -88,7 +88,7 @@
 
 <script>
 import axios from "axios";
-import { API_SERVER } from "../../config.js";
+import { API_SERVER } from "../../../config.js";
 
 export default {
   name: "WatsonRecs",
