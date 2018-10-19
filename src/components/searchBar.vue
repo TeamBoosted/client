@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="userInput">
     <div class="control">
       <label class="radio is-size-5">
         <input type="radio" value="movie" v-model="mediumType">
@@ -84,3 +84,10 @@ export default {
   }
 };
 </script>
+
+<style>
+#userInput {
+  max-width: 55%;
+  margin: auto;
+}
+</style>

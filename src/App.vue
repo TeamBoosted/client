@@ -98,7 +98,8 @@ import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import addMediumService from "./services/addMediumService.js";
 import getRecsService, {
-  getRecsByGenreService
+  getRecsByGenreService,
+  shuffle
 } from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
 import Profile from "./components/UserProfile/Profile.vue";
@@ -147,6 +148,7 @@ export default {
       let response = await getRecsService(movie);
       const data = response.data;
       this.recommendations.push(...data);
+      shuffle(this.recommendation);
     },
     toggleProfile: function() {
       this.homeOrRecs = !this.homeOrRecs;
@@ -176,8 +178,8 @@ export default {
         let response = await getLastThreeService(localStorage.id_token);
         response.data.forEach(rec => {
           this.recommendations.push(...rec);
+          shuffle(this.recommendations);
         });
-        this.$forceUpdate();
       } catch (err) {
         console.log(err);
       }
@@ -210,7 +212,7 @@ export default {
 }
 
 #magGlass {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 28%;
+  max-height: 28%;
 }
 </style>
