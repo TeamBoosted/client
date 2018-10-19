@@ -151,7 +151,6 @@ export default {
       this.recommendations.push(...data);
     },
     toggleProfile: function() {
-      console.log("HEY MAN I AM TOGGLING THE PROFILE", this.profile);
       this.homeOrRecs = !this.homeOrRecs;
       this.profile = !this.profile;
     },
@@ -177,11 +176,10 @@ export default {
     ) {
       try {
         let response = await getLastThreeService(localStorage.id_token);
-        console.log('response on update', response);
         response.data.forEach(rec => {
           this.recommendations.push(...rec);
+          shuffle(this.recommendations);
         });
-        this.$forceUpdate();
       } catch (err) {
         console.log(err);
       }
@@ -197,8 +195,7 @@ export default {
           return cache[rec.title] ? false : (cache[rec.title] = true);
         }
       });
-      const shuffled = shuffle(unique);
-      return shuffled;
+      return unique;
     }
   }
 };

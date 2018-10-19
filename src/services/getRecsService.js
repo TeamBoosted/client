@@ -1,17 +1,16 @@
 import axios from "axios";
 import { API_SERVER } from '../../config.js';
 export const shuffle = (arr) => {
-  const newArr = arr.slice();
-  let curIdx = newArr.length;
+  let curIdx = arr.length;
   let randomIdx, temp;
   while (curIdx !== 0) {
     randomIdx = Math.floor(Math.random() * curIdx);
     curIdx -= 1;
-    temp = newArr[curIdx];
-    newArr[curIdx] = newArr[randomIdx];
-    newArr[randomIdx] = temp;
+    temp = arr[curIdx];
+    arr[curIdx] = arr[randomIdx];
+    arr[randomIdx] = temp;
   }
-  return newArr;
+  return arr;
 }
 const limit = (arr, n) => {
   const limitted = [];
@@ -46,33 +45,25 @@ export const getRecsByGenreService = async (medium, watson = false) => {
     movie = await axios.get(`${API_SERVER}/api/rec/movies/genre/${genre_id}`);
     tv = await axios.get(`${API_SERVER}/api/rec/tv/genre/${genre_id}`);
     book = await axios.get(`${API_SERVER}/api/db/getBookRecsByGenre/${genre_id}`);
-    let arr = [...movie.data, ...tv.data];
     const data = {
       movie: medium,
       user: localStorage.id_token
     }
     axios.post(`${API_SERVER}/api/db/addMedium`, { data });
+    const limitMovie = limit(movie.data, 5);
+    const limitTv = limit(tv.data, 5);
+    const arr = [...limitMovie, ...limitTv];
     if (book.data && book.data.length > 0) {
-      book.data.forEach(rec => {
-        if (rec) {
-          arr.push(rec);
-        }
-      });
+      let n = 0;
+      while(n < 5) {
+        arr.push(book.data[n]);
+        n++;
+      } 
     }
-
-    axios.post(`${API_SERVER}/api/redis/caching`, { key, value: arr });
-    if (!watson) {
-      const limitMovie = limit(movie.data, 5);
-      const limitBooks = limit(movie.data, 5);
-      const limitTv = limit(tv.data, 5);
-      // console.log('array before limit', arr);
-      // const limitArr = limit(arr, 15);
-      const preShuffle = [...limitMovie, ...limitBooks, ...limitTv];
-      console.log('preshuffle', preShuffle);
-      // const shuffled = shuffle(preShuffle);
-      return preShuffle;
-    }
-    return arr;
+    axios.post(`${API_SERVER}/api/redis/caching`, {key,value: arr});
+    const shuffled = shuffle(arr);
+    return shuffled;
+    
   } catch (err) {
     console.log(err);
   }
