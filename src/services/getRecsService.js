@@ -1,7 +1,7 @@
 import axios from "axios";
 import { API_SERVER } from '../../config.js';
 export const shuffle = (arr) => {
-  if(arr.length) {
+  if (arr && arr.length) {
     let curIdx = arr.length;
     let randomIdx, temp;
     while (curIdx !== 0) {
@@ -16,10 +16,10 @@ export const shuffle = (arr) => {
 }
 const limit = (arr, n) => {
   const limitted = [];
-  if(arr.length <= n) {
+  if (arr.length <= n) {
     limitted.push(...arr);
   }
-  for(let i = 0; i < n; i++) {
+  for (let i = 0; i < n; i++) {
     limitted.push(arr[i]);
   }
   return limitted;
@@ -57,15 +57,15 @@ export const getRecsByGenreService = async (medium) => {
     const arr = [...limitMovie, ...limitTv];
     if (book.data && book.data.length > 0) {
       let n = 0;
-      while(n < 5) {
+      while (n < 5) {
         arr.push(book.data[n]);
         n++;
-      } 
+      }
     }
-    axios.post(`${API_SERVER}/api/redis/caching`, {key,value: arr});
+    axios.post(`${API_SERVER}/api/redis/caching`, { key, value: arr });
     const shuffled = shuffle(arr);
     return shuffled;
-    
+
   } catch (err) {
     console.log(err);
   }
