@@ -9,7 +9,6 @@ export default {
   mixins: [VueCharts.mixins.reactiveProp],
   props: ["data", "options", "chartData"],
   mounted() {
-    // Overwriting base render method with actual data.
     this.renderChart(this.data, this.options);
   }
 };
