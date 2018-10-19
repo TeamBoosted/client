@@ -55,7 +55,7 @@
       <Profile />
     </template>
     <template v-else-if="!profile">
-    <template v-if="recommendations.length < 15">
+    <template v-if="localStorage.moviesSaved < 3">
       <Header />
       <img id="magGlass" alt="Vue logo" src="https://openclipart.org/download/273208/1487427183.svg">
     </template>  
