@@ -17,15 +17,15 @@
       <ul>
         <div class="flex-container">
           <div class="box">
-            <i class="material-icons" id="thumbs-up" @click="thumbsUp(currentMovie); getGenreRecs(currentMovie); increment();">thumb_up</i>
-          </div>
+            <i class="material-icons" name="thumbs-down" @click="thumbsDown(); increment();">thumb_down</i>
+          </div> 
           <div class="poster">
             <img :src="currentMovie.image" class="poster">
           </div>  
           <br>
           <br>
           <div class="box">
-            <i class="material-icons" name="thumbs-down" @click="thumbsDown(); increment();">thumb_down</i>
+            <i class="material-icons" id="thumbs-up" @click="thumbsUp(currentMovie); getGenreRecs(currentMovie); increment();">thumb_up</i>
           </div>
         </div>
         <li>{{currentMovie.synopsis}}</li>
