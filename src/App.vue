@@ -124,7 +124,8 @@ import LandingPage from "./components/LandingPage";
 import RateRecs from "./components/RateRecs";
 import addMediumService from "./services/addMediumService.js";
 import getRecsService, {
-  getRecsByGenreService
+  getRecsByGenreService,
+  shuffle
 } from "./services/getRecsService.js";
 import getLastThreeService from "./services/getLastThreeService.js";
 import Profile from "./components/UserProfile/Profile.vue";
@@ -201,6 +202,7 @@ export default {
     ) {
       try {
         let response = await getLastThreeService(localStorage.id_token);
+        console.log('response on update', response);
         response.data.forEach(rec => {
           this.recommendations.push(...rec);
         });
@@ -220,7 +222,8 @@ export default {
           return cache[rec.title] ? false : (cache[rec.title] = true);
         }
       });
-      return unique;
+      const shuffled = shuffle(unique);
+      return shuffled;
     }
   }
 };
