@@ -12,7 +12,7 @@
 export default {
   data() {
     return {
-      title: "Welcome to BetterArt!",
+      title: "Welcome to My Media!",
       tag: "A better way to find your favorite things"
     };
   }

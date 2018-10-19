@@ -210,7 +210,7 @@ export default {
 }
 
 #magGlass {
-  max-width: 50%;
-  max-height: 50%;
+  max-width: 28%;
+  max-height: 28%;
 }
 </style>
