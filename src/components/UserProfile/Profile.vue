@@ -86,7 +86,6 @@ export default {
 
       this.userInfo.userInfo = synopsisString;
 
-      console.log("getting personality");
       let watsonResponse = await getWatsonService(this.userInfo);
 
       let personalityNameArray = [];

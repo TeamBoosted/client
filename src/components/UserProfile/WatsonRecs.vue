@@ -88,6 +88,7 @@
 
 <script>
 import axios from "axios";
+import { API_SERVER } from "../../../config.js";
 
 export default {
   name: "WatsonRecs",
@@ -102,7 +103,6 @@ export default {
   },
   methods: {
     getRecsByPersonality: async function() {
-      //add more genres and a default one if nothing is too extreme
       let type, genre_id;
       let bookRecs = [];
       let tvRecs = [];
@@ -111,7 +111,6 @@ export default {
         genre_id = 35;
       } else if (this.personalityInfo.Emotional_range > 75) {
         genre_id = 12;
-        console.log("emotion range!!!!");
       } else if (
         this.personalityInfo.Agreeableness < 15 &&
         this.personalityInfo.Conscientiousness < 15
@@ -124,13 +123,11 @@ export default {
       try {
         let movie, tv, book;
         movie = await axios.get(
-          `http://localhost:80/api/rec/movies/genre/${genre_id}`
+          `${API_SERVER}/api/rec/movies/genre/${genre_id}`
         );
-        tv = await axios.get(
-          `http://localhost:80/api/rec/tv/genre/${genre_id}`
-        );
+        tv = await axios.get(`${API_SERVER}/api/rec/tv/genre/${genre_id}`);
         book = await axios.get(
-          `http://localhost:80/api/db/getBookRecsByGenre/${genre_id}`
+          `${API_SERVER}/api/db/getBookRecsByGenre/${genre_id}`
         );
 
         let arr = [...movie.data, ...tv.data];
@@ -168,9 +165,6 @@ export default {
         console.log(err);
       }
 
-      //     //
-      //   }
-      // }
       this.showPersonality = !this.showPersonality;
     }
   }
