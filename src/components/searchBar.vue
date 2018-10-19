@@ -1,27 +1,41 @@
 <template>
   <div>
-    <input type="radio" value="movie" v-model="mediumType">
-    <label>Movie</label>
-    <input type="radio" value="tv" v-model="mediumType">
-    <label>TV</label>
-    <input type="radio" value="books" v-model="mediumType">
-    <label>Books</label>
-    <input type="text" v-model="input">
-    <a class="button is-light" @click="searchForMedium();  showSearchResults = true">Search</a>
+    <div class="control">
+      <label class="radio is-size-5">
+        <input type="radio" value="movie" v-model="mediumType">
+        Movie
+      </label>
+      <label class="radio is-size-5">
+        <input type="radio" value="tv" v-model="mediumType">
+        TV
+      </label>
+      <label class="radio is-size-5">
+        <input type="radio" value="books" v-model="mediumType">
+        Books
+      </label>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input class="input is-medium is-rounded" type="text" v-model="input" placeholder="Search Media">
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <a class="button is-light is-size-5" @click="searchForMedium();  showSearchResults = true">Search</a>
+      </div>
+    </div>
     <div v-if="movies.length > 0"  >
-      <ul>
-        <DropdownList 
-        v-show="showSearchResults"
-        v-for="movie in movies"
-        v-bind:key="movie.id"
-        v-bind:movie="movie"
-        v-on:toggleSearchResults="toggleSearchResults($event)"
-        v-bind:saveToDatabase="saveToDatabase"
-        v-bind:getRecs="getRecs"
-        v-bind:mediumType="mediumType"
-        >
-        </DropdownList>
-      </ul>
+      <DropdownList 
+      v-show="showSearchResults"
+      v-for="movie in movies"
+      v-bind:key="movie.id"
+      v-bind:movie="movie"
+      v-on:toggleSearchResults="toggleSearchResults($event)"
+      v-bind:saveToDatabase="saveToDatabase"
+      v-bind:getRecs="getRecs"
+      v-bind:mediumType="mediumType"
+      >
+      </DropdownList>
     </div>
   </div>
 </template>

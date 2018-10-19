@@ -52,12 +52,13 @@ export const getRecsByGenreService = async (medium, watson = false) => {
       user: localStorage.id_token
     }
     axios.post(`${API_SERVER}/api/db/addMedium`, { data });
-    // const bookArr = []
-    book.data.forEach(rec => {
-      if (rec) {
-        arr.push(rec);
-      }
-    })
+    if (book.data && book.data.length > 0) {
+      book.data.forEach(rec => {
+        if (rec) {
+          arr.push(rec);
+        }
+      });
+    }
 
     axios.post(`${API_SERVER}/api/redis/caching`, { key, value: arr });
     if (!watson) {

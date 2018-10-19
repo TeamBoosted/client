@@ -7,7 +7,7 @@ export default {
   name: "PersonalityChart",
   extends: Doughnut,
   mixins: [VueCharts.mixins.reactiveProp],
-  props: ["data", "options","chartData"],
+  props: ["data", "options", "chartData"],
   mounted() {
     // Overwriting base render method with actual data.
     this.renderChart(this.data, this.options);
@@ -16,5 +16,4 @@ export default {
 </script>
 
 <style >
-
 </style>

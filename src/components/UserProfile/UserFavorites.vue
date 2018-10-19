@@ -1,7 +1,8 @@
 <template>
   <div>
-
-    <a @click="getUserFavorites"> I am in the user favorites now. Click me </a>
+    <div class="column is-full">
+      <a  class="button is-primary" @click="getUserFavorites"> Get Your Favorites</a>
+    </div>
     <p></p>
     <template v-if="showFavorites">
       <FavoritesList
@@ -36,6 +37,9 @@ export default {
 
       this.showFavorites = !this.showFavorites;
     }
+  },
+  beforeMounted: function() {
+    this.getUserFavorites();
   }
 };
 </script>

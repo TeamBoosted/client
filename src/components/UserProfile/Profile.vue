@@ -2,21 +2,27 @@
   <div>
     <template v-if="this.showChart === false">
       <p>Welcome to your tailored profile! </p>
-      <p>Here you can find your favorite works of art, as well as those you found interestings</p>
-      <p>We also offer a personality analysis based off of your favorite works of art!</p>
-    <UserFavorites />
+      <p>Here you can find your favorited works of art, as well as those you found interesting</p>
+      <UserFavorites />
+       
+      <div class="column is-full" id="watsonbutton">
+      <p>We also offer a personality analysis based off of your favorite works of art!</p>     
+             <a 
+            class="button is-primary"
+            @click="getPersonality()"
+            >
+            Get Your Artistic Personality
+            </a>
+      </div>
     </template>
+    
 
-    <a 
-      class="button-is-primary"
-      @click="getPersonality(); getRecsByPersonality()"
-    >
-    Get Your Artistic Personality
-    </a>
+ 
 
     <div class="columns">
       <div class="column is-full">
         <template v-if="showChart" >
+    <p>Here is your Big-5 personality analysis based off of your artistic interest!</p>  
           <personality-chart 
           :data="this.chartData" 
           :options="{responsive: true, maintainAspectRatio: false,}"
@@ -27,12 +33,16 @@
       </div> 
     </div>
 
-
     <div v-if="this.showChart">
-      <WatsonRecs 
-      :personalityInfo="this.personalityInfo"
-      />
-    </div>
+  
+  
+    <WatsonRecs 
+    :personalityInfo="this.personalityInfo"
+    />
+  </div>
+
+
+    
 
     
     
@@ -112,16 +122,8 @@ export default {
         ]
       };
     },
-    getRecsByPersonality: function() {
-      // I have the obj that shows the relationships. I will be able to provide a breakdown and recommend 1-2 works per medium.
-      // if x is above x, then make this call and display those genres
-      // console.log(
-      //   "========> I am in getRecysByPersonality",
-      //   this.personalityInfo.extraversion
-      // );
-      // if (this.personalityInfo.extraversion > 70) {
-      //   console.log("EXTRAVERSION IS ABOVE 70");
-      // }
+    mounted() {
+      this.getPersonality();
     }
   }
 };
@@ -130,5 +132,8 @@ export default {
 <style >
 .columns {
   align-content: center;
+}
+#watsonbutton {
+  margin-top: 10%;
 }
 </style>
