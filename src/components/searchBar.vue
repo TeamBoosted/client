@@ -1,6 +1,6 @@
-<template>
+l<template>
   <div id="userInput">
-    <div class="control">
+    <div class="columns">
       <label class="radio is-size-5">
         <input type="radio" value="movie" v-model="mediumType">
         Movie
@@ -14,14 +14,14 @@
         Books
       </label>
     </div>
-    <div class="field">
-      <div class="control">
+    <div class="field" >
+      <div class="columns">
         <input class="input is-medium is-rounded" type="text" v-model="input" placeholder="Search Media">
+        <a  class="button is-light is-rounded is-size-5" @click="searchForMedium();  showSearchResults = true">Search</a>
       </div>
     </div>
     <div class="field">
       <div class="control">
-        <a class="button is-light is-size-5" @click="searchForMedium();  showSearchResults = true">Search</a>
       </div>
     </div>
     <div v-if="movies.length > 0"  >
