@@ -1,12 +1,13 @@
 <template>
   <div>
-    <template v-if="this.showChart === false">
-      <p>Welcome to your tailored profile! </p>
-      <p>Here you can find your favorited works of art, as well as those you found interesting</p>
+  
+    <template v-if="this.showChart === false" >
+      <p class="is-size-4">Welcome to your tailored profile! </p>
+      <p class="is-size-4">Here you can find your favorited works of art, as well as those you found interesting</p>
       <UserFavorites />
-       
+
       <div class="column is-full" id="watsonbutton">
-      <p>We also offer a personality analysis based off of your favorite works of art!</p>     
+      <p class="is-size-4">We also offer a personality analysis based off of your favorite works of art!</p>     
              <a 
             class="button is-primary"
             @click="getPersonality()"
@@ -22,7 +23,7 @@
     <div class="columns">
       <div class="column is-full">
         <template v-if="showChart" >
-    <p>Here is your Big-5 personality analysis based off of your artistic interest!</p>  
+    <p class="is-size-4">Here is your Big-5 personality analysis based off of your artistic interest!</p>  
           <personality-chart 
           :data="this.chartData" 
           :options="{responsive: true, maintainAspectRatio: false,}"
@@ -34,7 +35,6 @@
     </div>
 
     <div v-if="this.showChart">
-  
   
     <WatsonRecs 
     :personalityInfo="this.personalityInfo"
